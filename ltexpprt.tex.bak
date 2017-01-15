@@ -1,0 +1,942 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%  ltexpprt.tex  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% This is ltexpprt.tex, an example file for use with the SIAM LaTeX2E
+% Preprint Series macros. It is designed to provide double-column output.
+% Please take the time to read the following comments, as they document
+% how to use these macros. This file can be composed and printed out for
+% use as sample output.
+
+% Any comments or questions regarding these macros should be directed to:
+%
+%                 Donna Witzleben
+%                 SIAM
+%                 3600 University City Science Center
+%                 Philadelphia, PA 19104-2688
+%                 USA
+%                 Telephone: (215) 382-9800
+%                 Fax: (215) 386-7999
+%                 e-mail: witzleben@siam.org
+
+
+% This file is to be used as an example for style only. It should not be read
+% for content.
+
+%%%%%%%%%%%%%%% PLEASE NOTE THE FOLLOWING STYLE RESTRICTIONS %%%%%%%%%%%%%%%
+
+%%  1. There are no new tags.  Existing LaTeX tags have been formatted to match
+%%     the Preprint series style.
+%%
+%%  2. You must use \cite in the text to mark your reference citations and
+%%     \bibitem in the listing of references at the end of your chapter. See
+%%     the examples in the following file. If you are using BibTeX, please
+%%     supply the bst file with the manuscript file.
+%%
+%%  3. This macro is set up for two levels of headings (\section and
+%%     \subsection). The macro will automatically number the headings for you.
+%%
+%%  5. No running heads are to be used for this volume.
+%%
+%%  6. Theorems, Lemmas, Definitions, etc. are to be double numbered,
+%%     indicating the section and the occurence of that element
+%%     within that section. (For example, the first theorem in the second
+%%     section would be numbered 2.1. The macro will
+%%     automatically do the numbering for you.
+%%
+%%  7. Figures, equations, and tables must be single-numbered.
+%%     Use existing LaTeX tags for these elements.
+%%     Numbering will be done automatically.
+%%
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\documentclass[twoside,leqno,twocolumn]{article}
+\usepackage{ltexpprt}
+\usepackage{subfigure}
+\usepackage{xcolor}
+\usepackage{url}
+\usepackage{mathrsfs}
+\usepackage{amsfonts}
+\usepackage[normalem]{ulem}
+\usepackage{array}
+\usepackage{amsmath}
+%\usepackage{underscore}
+\usepackage{graphics}
+\usepackage{graphicx}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage{caption}
+
+\begin{document}
+%\setlength{\pdfpagewidth}{8.5in}
+%\setlength{\pdfpageheight}{11in}
+
+%\setcounter{chapter}{2} % If you are doing your chapter as chapter one,
+%\setcounter{section}{3} % comment these two lines out.
+
+\title{Absenteeism Detection in Social Media}
+\author{Fang Jin\thanks{Virginia Tech.}
+\and
+Feng Chen\thanks{SUNY Albany.}
+\and
+Rupinder P. Khandpur\footnotemark[1]
+\and
+Chang-Tien Lu\footnotemark[1]
+\and
+Naren Ramakrishnan\footnotemark[1]}
+\date{}
+
+\maketitle
+
+
+%\pagenumbering{arabic}
+%\setcounter{page}{1}%Leave this line commented out.
+
+\begin{abstract} \small\baselineskip=9pt Event detection in online social media has primarily focused on identifying abnormal spikes, or bursts, in activity. However, disruptive events such as socio-economic disasters, civil unrest, and even power outages, often involve abnormal troughs or lack of activity,
+leading to absenteeism. We present the first study, to our knowledge, that models absenteeism and uses detected absenteeism instances as a basis for event detection in location-based social networks such as Twitter. The proposed framework addresses the challenges of (i) early detection of absenteeism, (ii) identifying the locus of the absenteeism, and (iii) identifying groups or communities underlying the absenteeism. Our approach uses the formalism of graph wavelets to represent the spatiotemporal structure of
+user activity in a location-based social network. This formalism facilitates multiscale analysis, enabling us to detect anomalous behavior at different graph resolutions, which in turn allows the identification of event locations and underlying groups. The effectiveness of our approach is evaluated using Twitter activity related to civil unrest events in Latin America.\end{abstract}
+
+
+
+
+\section{Introduction.}\label{sec:introduction}
+Social microblogs such as Twitter and Weibo are experiencing explosive growth, with billions of users globally sharing their daily status updates online. For example, as of September 30, 2016 Twitter had more than 317 million average monthly active users (78\% of whom were using mobile devices)\footnote{http://www.statista.com/statistics/282087/number-of-monthly-active-twitter-users/}.
+Various studies have shown that Twitter is a viable `social sensor', and thus holds great promise for detecting and forecasting significant societal events ~\cite{sakaki2010earthquake}.
+In recent years, a significant body of research~\cite{aggarwal2012event,hong2012discovering,lappas2009burstiness,sakaki2010earthquake,sayyadi2009event,weng2011event,yin2011geographical} has focused on modeling bursts and increases of user activity in social media.
+
+However, real world events are not only correlated with burst signals, but can also lead to unusually low levels of activity in social networks. An example of this phenomenon
+is shown in Figure 1, where a protest in the city of Natal, Brazil, began at 5:00 PM (local time) at the Museum of the Republic, with people gradually joining the demonstration. %\footnote{http://www.jb.com.br/pais/noticias/2013/06/17/manifestantes-invadem-cobertura-do-congresso-nacional-em-brasilia/}.
+On Twitter, there was an uncharacteristic lull in activity or {\it group absenteeism} behavior in the area for the two hours from 6:00 PM - 8:00 PM that day.
+%Another example comes from December 24, 2013, when southern Brazil experienced widespread flash floods. According to news sources, more than 50,000 people were forced to flee their homes in Minas Gerais and Espirito Santo, in the southern states of Brazil. Immediately following the floods, Twitter activity in this region dropped by 51\%, reaching its lowest point later that evening.
+%Other examples of \textit{group absenteeism} that we observed from Latin American Twitter activity include bus strikes in Brazil on May 21, 2014, the Iquique earthquake in Chile on April 1, 2014, and a major power supply disruption in Argentina on December 30, 2013.
+
+\begin{figure}[t]
+\centering
+\includegraphics[height=1.1in]{figures/Natal_example1.png}
+\caption{Detected group absenteeism in Natal, Brazil beginning at 6:00 PM on June 17, 2013. This absenteeism event coincides with a large protest that happened in the region.}
+\label{fig:natal-protest}
+\end{figure}
+
+Developing a better appreciation of this phenomenon of unusually calm behavior online holds enormous potential for understanding localized, disruptive, societal events. In this paper we focus on absenteeism as a key phenomenon of interest and develop novel group anomaly detection algorithms for this purpose.
+An absenteeism event in a social network can be defined as an event which is characterized by a significant lull in activity such as a sudden, sharp decrease of Twitter volume within a short period of time (and which may precede a major burst in activity as people react to the event). This paper presents the first study to systematically investigate group anomaly in location-based social networks, including both absenteeism and burst. To appropriately incorporate absenteeism concepts into our detection approach, we must first address the following questions:
+
+\begin{itemize}
+\item How can we define/adapt anomaly detection algorithms to capture not just bursty situations
+but also those that involve absenteeism?
+\item At what scale should we model the absenteeism activity and how can we isolate the locus of
+interest?
+\item What is the most efficient way to select abnormal groups that are spatially and temporally localized?
+\item How do we model an absenteeism signal for event detection?
+  %Even though we have clear examples of real world events that explain the observed absenteeism, not all absenteeism occurrences will be associated with underlying events and thus we must be able to differentiate between absenteeism and merely noisy signals for successful event detection.
+\end{itemize}
+
+A graph wavelet approach offers several outstanding advantages to study the above questions, including scalability, localization, low computational complexity, and
+compactness in defining groups. In this formalism, the data objects are embedded in a general graph as vertices. By employing wavelet transforms on the graph, we can construct a wavelet function with a graph structure. We propose the use of a graph anomaly index that depends on the graph structure in conjunction with an absenteeism score vector in order to define whether a graph is abnormal. When a graph is deemed to be exhibiting abnormal behavior, we can calculate its wavelet coefficient to identify the central node and its coverage area. This approach will enable us to select abnormal groups at different scales. Such group anomaly detection methods are varied and proven to be effective in detecting events such as protest marches.
+% and natural disasters.
+
+%As for another abnormal scenarios such as natural disaster, we propose a two-pass group anomaly detection method that first detects absenteeism, and then checks if there is a subsequent burst in activity within a specific time period. By comparing correlations between the wavelet coefficients of both of these groups, we are able to capture a possible real world event.
+
+Our contributions are thus:
+\begin{itemize}
+\item To the best of our knowledge this is the first study to utilize group absenteeism as a basis for event detection. By studying different types of group anomalies, either bursts or absenteeism, we demonstrate that these anomalies are indicative of key events such as civil protests.
+    % or natural disasters.
+\item We incorporate graph wavelets as a mechanism to detect the most anomalous subgraphs at different scales. We demonstrate the power of this approach for social media analytics.
+\item We define a graph anomaly index that can be used to determine whether a graph is abnormal. We then apply the graph wavelet to locate the central node and identify the abnormal groups.
+%\item We propose a novel two-pass event detection method that uses correlation scores between the group depicting \textit{absenteeism} and the group demonstrating increased activity to probabilistically determine the likelihood of an event.
+\end{itemize}
+
+%The rest of this paper is organized as follows. Section~\ref{sec:related} reviews related work and existing methodologies and Section~\ref{sec:problem} formalizes the research problem. In Section~\ref{sec:algorithm}, we discuss the graph wavelet formalism for group anomaly detection.
+%and subsequently demonstrate how it can be used for two-pass event detection. Section~\ref{sec:experiment} extensive experiments testing our new approach's effectiveness for real-world event detection, and the paper concludes with a summary of the research in Section~\ref{sec:conclusion}.
+
+
+
+\section{Related work} \label{sec:related}
+%\section{Related Work}
+%In our paper, the related work falls into the following three aspects.
+\paragraph{Group Anomaly Detection}
+Anomaly detection in graphs has been well studied using outlier detection methods~\cite{akoglu2009anomaly}. When considering group concepts, two directions have been explored~\cite{akoglu2015graph}, namely anomalies in unlabeled/plain graphs~\cite{noble2003graph} and those in
+attributed graphs. In plain graph anomaly detection, since the only information provided is its structure, features such as distances and communities~\cite{sun2005neighborhood} have been employed to define graph anomalies. In one interesting study~\cite{henderson2010metric}, additional metrics such as vertices, edges, degree, weight, and connected components are incorporated into the detection framework. In attributed graphs, features regarding node behaviors make it possible to create a richer graphical representation, which is usually connected with one or more real-world applications. Other studies, for example~\cite{yu2014glad} define groups based on the term of the role, and model normal groups that follow the same pattern with respect to their role mixture rates. %Alternatively, some researchers working on group anomaly detection have built generative models of group anomalies~\cite{xiong2011hierarchical} where the goal is to automatically infer the groups and thus detect group anomalies in a social network. Typically these mixed models suffer from high computational complexity, however, due to the size of the data and are as a result heavily parameterized. In this study, we consider both the graph structure and node features in our proposed graph wavelet based approach for group anomaly detection, as this guarantees that the detected group is automatically compact, with polynomial computation complexity and scalability.
+
+\paragraph{Event Detection}
+%Event detection based on LSBNs is a research area that has attracted significant attention in recent years.
+Traditional approaches focus on capturing the spatiotemporal burstiness of keywords~\cite{lappas2009burstiness}; Kalman filtering to track the geographical trajectories of hot spots of tweets related to earthquakes~\cite{sakaki2010earthquake}; detecting topics of interest that are coherent within specific geographic regions~\cite{eisenstein2010latent,hong2012discovering,yin2011geographical}; applying clustering-based approaches to search for emerging clusters of documents or terms using predefined similarity metrics that consider factors such as term co-occurrences and social interactions~\cite{aggarwal2012event,sayyadi2009event,weng2011event}; and using the notion of compactness of a graph~\cite{rozenshtein2014event} to detect events.
+%Several statistical methods have also been developed, based on Kulldroff's spatial scan statistic~\cite{kulldorff1997spatial}, to detect spatial outliers~\cite{chen2008detecting} and these have been applied to a wide variety of domains including transportation networks, civil unrest forecasting~\cite{zhao2014unsupervised}, and heterogeneous social media graphs~\cite{chen2014non}. %The approach we have chosen to address the event detection problem is conceptually different from all the above mentioned studies as it is based on the use of a graph-theoretic framework to detect group anomalies and correlate these to predict future events. %Although group absence behavior has been widely studied in the area of organizational behavioral studies~\cite{gaudine2001effects,seamonds1982stress}, it remains largely unexplored in the area of social network analysis.
+%Bearing a close resemblance to group anomaly detection in complex networks, our new detection approach is further distinguished by its focus on groups rather than individuals.
+
+\paragraph{Graph Wavelets}
+One of the key challenges facing our research is the need to adapt a detection procedure to encompass both missing and bursty activity groups. To address this issue, we incorporate spectral graph wavelets~\cite{hammond2011wavelets} into our algorithm. This strategy has previously been found to be quite effective for multiscale community mining~\cite{tremblay2014graph}.
+Wavelet methods based on spectral graph theory have been applied to wide array of data mining tasks such as community detection, anomaly detection~\cite{calderara2011detecting}, and other machine learning tasks~\cite{shuman_ACHA_2013,ghosh2003wavelet,rustamov2013wavelets,2000wavecluster,silva2016graph}. %By constructing wavelets over graphs we are able to take advantage of the local information encoded in the graph structure to cluster and identify nodes that are similar to one another in a scale-dependent fashion.
+
+
+\section{PROBLEM SETTING} \label{sec:problem}
+In this section, we begin by introducing the mathematical notation used in this paper and then proceed to formalize our approach to group anomaly detection. After presenting the problem statement, we provide a brief comparison of our approach with conventional solutions, and review the challenging issues that are relevant to this type of event detection problem.
+
+\subsection{Notation}
+\label{sec:notations}
+
+We are given an undirected, weighted graph $\mathbf{G}(V,E;f)$, where $V=\{v_0,v_1,...,v_{N-1}\}$ represents the set of $N$ cities and $E$ refers to the connections between neighboring cities. $W$ is a matrix of non-negative weights associated with each edge, where $e_{ij}\in E$. The function, $f: V \rightarrow {\mathbb{R}}^N$ maps the vertices of graph $\mathbf{G}$, and $f(n)$ stands for the value on the vertex $v_n$. Graph $\mathbf{G}$'s adjacency matrix $\mathbf{A}$ is of size $N\times N$, where each element $a_{ij}$ is represented as:
+\begin{equation}
+a_{ij} = \left\{ \begin{array}{rl}
+ w_{ij} &\mbox{ when $e_{ij}\in {E}$} \\
+  0 &\mbox{ otherwise}
+       \end{array} \right.
+\end{equation}
+Here, $\mathbf{A}$ is symmetric since $a_{ij}=a_{ji}$.
+Let $d_i=\sum\limits_{v_j \in V}a_{ij}$ be the sum of all edge weights that are incident on $v_i$, and $\mathbf{D}$ be the diagonal matrix denoted as $\mathbf{D}=diag\{d_1,d_2,\ldots,d_N\}$. A Laplacian matrix $\mathcal{L}$ is defined as $\mathcal{L}=\mathbf{D-A}$. It is a symmetric matrix and has real eigenvalues $\lambda_{i}$ such that $0 = \lambda_{0} < \lambda_{1} \leq \lambda_{2} \leq \ldots \leq \lambda_{N-1} = \lambda_{max}$. The complete set of $\mathcal{L}$'s normalized eigenvectors $\chi_{i}$ for $i=0,1,2,...,N-1$ is described as:
+\begin{equation}
+\label{eq:eigenvalues}
+\mathcal{L}\chi_{i}=\lambda_{i}\chi_{i}
+\end{equation}
+The set of eigenvalue and normalized eigenvector pairs is denoted as:
+\begin{equation}
+\label{eq:spectrum}
+\sigma({\mathbf{G}}):=\{(\lambda_l,\chi_l)\}_{l=0}^{N-1}.
+\end{equation}$\sigma({\mathbf{G}})$ is also called the graph spectrum of $\mathbf{G}$.
+
+
+
+
+\subsection{Problem Statement}
+\label{sec:problemformulation}
+We focus on the problem of group anomaly detection from online social networks, based on the absenteeism behavior observed in user activity in geographically proximal communities or group of cities.
+Conventionally, this problem can be described as following: \emph{given a graph $\mathbf{G}(V,E;f^t)$, where $f^t$ represents \textit{absenteeism score} vector at time interval $t$, select a subset $P \subseteq V$, such that
+\begin{eqnarray}
+ \label{eq: problem}
+    P=\underset{P\subseteq V, P \mbox{ is compact}}{\arg\min}\ \ \sum_{v_k\in P} {f(k)}
+\end{eqnarray} }
+Defining compactness of the selected subset $P$ is, of course, the key issue here.
+A general solution to this problem involves employing a combinatorial optimization method; by defining a constrained objective function over a network one can identify a subset of vertices which minimize the corresponding function~\cite{rozenshtein2014event}. Therefore, Equation~\ref{eq: problem} can be modified as:
+\begin{eqnarray}
+ \label{eq: problem_conventional}
+    P=\underset{P\subseteq V}{\arg\min}\ \ \sum_{v_k\in P} {f(k)}+\lambda \mu(P),
+\end{eqnarray}
+where $\mu(P)$ is the compactness penalty function of $P$ (e.g., the sum of distances among
+all pairs of the vertices in $P$~\cite{rozenshtein2014event}), and $\lambda$ is the regularization parameter.
+However, such methods suffer from the following issues:
+\begin{enumerate}
+\item Definition of the compactness function $\mu(P)$ is subjective.
+%To define and measure the compactness of subset $P\subseteq V$ is challenging, considering the exponential varieties of complex graphs.
+\item  Determination of an appropriate regularizer $\lambda$ is difficult, as we do not have sufficient training data for this purpose.
+%To determine a suitable regularization parameter $\lambda$ in the objective function is ambiguous, because simply combining multiple physical different concepts in the objective function makes the optima sensitive to $\lambda$.
+\item To solve this objective function is often a NP-hard problem~\cite{rozenshtein2014event}, which makes it impractical in many real world applications. Sometimes, even the approximate solutions are of high computation complexity, if there are any.
+\end{enumerate}
+
+In contrast, our approach proposes a novel group anomaly algorithm for social networks that is based on spectral graph wavelet theory.
+The graph wavelets focus on the intrinsic geometric structure of the graph by transforming each vertex $v_i\in V$, and mining the topological information of both local and global centered vertices to support a multiscale analysis. In addition, the graph wavelet approach identifies anomaly groups that are automatically compact, and provides a fair method at a low computational cost in terms of complexity for identifying abnormal group behavior in broad application scenarios.
+
+
+\section{ALGORITHMS} \label{sec:algorithm}
+In this section, we first introduce the graph Fourier transform concept, explain the interpretations of eigenvectors and eigenvalues, and then adapt them to constitute a newly defined anomaly index for graphs. We then proceed to describe graph wavelet features such as reconstruction and localization. In Section~\ref{sec:Group_Anomaly_Detection_via_graph_wavelet}, we propose a new group anomaly detection algorithm based on graph wavelets.
+%And in section~\ref{sec:Group Absenteeism Event Detection} we present the two-pass event detection algorithm.
+
+\subsection{Graph Fourier Transform}
+\label{sec:Graph_Fourier_Transform}
+Given a signal $f$ defined on graph $\mathbf{G}$, its graph Fourier transform is considered as the projection of $f$ on the complete set of $\{\chi_l\}_{l=0}^{N-1}$, and is written as~\cite{hammond2011wavelets}:
+\begin{equation}
+\label{eq:Graph_Fourier_Transform1}
+\hat{f}(l)=<\chi_{l},f>=\sum_{i=1}^{N}\chi^*_{l}(i)f(i)
+\end{equation}
+Since $\{\chi_l\}_{l=0}^{N-1}$ is complete, $f$ can be recovered by its graph Fourier transform coefficients $\hat{f}(l)$ as~\cite{hammond2011wavelets}:
+\begin{equation}
+\label{eq:Inverser_Graph_Fourier_Transform}
+f(n)=\sum_{l=0}^{N-1}\hat{f}(l)\chi_{l}(n)
+\end{equation}
+Here, $\hat{f}(l)$ is the coefficient of component $\chi_l$.
+\subsubsection{eigenvector $\chi_l$}
+As an analog with classical signal processing, eigenvector $\chi_l$ is also referred to as
+the  frequency of $\mathbf{G}$ by some researchers. In the latter part of this paper, $\chi_l$ will be referred to as the eigenvector or frequency, alternatively. However, unlike the traditional frequency concept in classical signal processing fields, the frequency of $\mathbf{G}$ is a set of discreet vectors with length of $|V|$. Interestingly, like the classical signal Fourier transform, the
+Parseval relation~\cite{shuman2015vertex} still holds, i.e.,
+\begin{equation}
+\label{eq:Parseval}
+||\hat{f}||_2^2=||f||_2^2
+\end{equation}
+Equation~\ref{eq:Parseval} means that the
+energy in the vertex domain and frequency domain is equal for any graph signal $f$. Without loss of generality, we assume $||f||_2 =1$.
+
+\subsubsection{eigenvalue $\lambda_l$}
+According to the definition of eigenvalue $\lambda_l$  in Equation~\ref{eq:eigenvalues}, the following equation holds:
+\begin{equation}
+\label{eq:lambda1}
+\chi_{l}^T\lambda_{l}\chi_{l}=\chi_{l}^T\mathcal{L}\chi_{l}= \sum_{e_{mn}\in E} w_
+{mn}[\chi_{l}(m)-\chi_{l}(n)]^2
+\end{equation}Since $\chi_{l}$ is normalized, and $||\chi_{l}||_2 =1$, then,
+\begin{equation}
+\label{eq:lambda2}
+\chi_{l}^T\lambda_{l}\chi_{l}=\lambda_l= \sum_{e_{mn}\in E} w_
+{mn}[\chi_{l}(m)-\chi_{l}(n)]^2
+\end{equation}
+From equation~\ref{eq:lambda2}, we can see that $\lambda_l$ summarizes all the eigenvector deviations on any directly connected vertices $v_m$ and $v_n$ in $\mathbf{G}$. Since each term in the summation of the right-hand side is non-negative, the eigenvectors associated with smaller eigenvalues are smoother; i.e., the component differences between neighboring vertices are
+small~\cite{shuman2015vertex}. As the eigenvalue increases, larger differences in neighboring
+components of the graph Laplacian eigenvectors are present.
+Hence, for larger $\lambda_l$, its corresponding eigenvector, $\chi_l(n)$, has larger deviation among connected vertices. According to the definition of Laplacian matrix $\mathcal{L}$, it is easy to verify that $\lambda_0=0$ since $\mathcal{L}\cdot\vec{\textbf{1}}= 0\cdot\vec{\textbf{1}}$, where $\vec{\textbf{1}}=\{1,1,1,...,1\}$, and $\chi_o(n)=\frac{\vec{\textbf{1}}}{\sqrt{N}}$. Thus, $\chi_o(n)=\frac{\vec{\textbf{1}}}{\sqrt{N}}$ means that $\chi_o(n)$ is constant on each vertex, and that
+there is no deviation among any two vertices in $\chi_0(n)$. For this reason, $\chi_0(n)$ is considered as the least abnormal component of $\mathbf{G}$. Similarly, $\chi_{N-1}(n)$ is considered as the most abnormal component of $\mathbf{G}$.
+
+Figure~\ref{fig:graph_G} shows an undirected graph $\mathbf{G_1}$ where each edge's weight is $1$. Figure~\ref{fig:frequency1} shows  $\mathbf{G_1}$'s six eigenvectors distributions along each vertex. We can see that
+$\chi_0$ is constant on very vertex, and has the smallest deviations along each edge. $\chi_5$ has the largest deviations, and the difference of $\chi_5$ along each edge is larger than any other eigenvector on average.
+
+\begin{figure}[h]
+	\centering
+    {
+		\includegraphics[height=0.8in] {figures/graph_G.png}
+	}
+    \vspace{-2mm}
+	\caption{Example graph $\mathbf{G_1}$ where all edges' weights are $1$.}
+	\label{fig:graph_G}
+\end{figure}
+
+
+\begin{figure}[ht]
+	\centering
+    \vspace{-3mm}
+	\subfigure[]{
+		\includegraphics[width= 2.4in,height=0.9in] {figures/frequency.png}
+		\label{fig:frequency1}
+	}
+    \vspace{-3mm}
+	\subfigure[]{
+		\includegraphics[width= 2.3in,height=0.9in] {figures/g1_gamma.png}
+		\label{fig:g1_gamma}
+	}
+    \vspace{-2mm}
+	\subfigure[]{
+		\includegraphics[width= 2.45in,height=0.9in] {figures/same_graph.png}
+		\label{fig:same_graph}
+	}
+
+	\caption{(a): Eigenvector distribution along each vertex in graph $\mathbf{G_1}$.  (b): anomaly index $\gamma_f(l)$ of $f_1=[2,3,4,3,2,1]$ on graph $\mathbf{G_1}$. (c): anomaly index $\gamma_f(l)$ of $f_1=[2,3,4,3,2,1]$  and $f_2=[2,2,-3,4,3,1]$ on graph $\mathbf{G_1}$, where $\gamma_{f_1}=0.905$, and $\gamma_{f_1}=0.073$, labelled in red ovals.}
+	\label{fig:f_on_g2}
+\end{figure}
+
+\subsection{Global Anomaly Index}
+\label{sec:signal_anomaly_on_Graph}
+
+To quantify the anomaly of a vector $f$ defined on a graph $\mathbf{G}$, it's necessary to incorporate the intrinsic structures of $\mathbf{G}$ and $f$. As discussed above, $\hat{f}(l)$ represents the coefficient of frequency $\chi_l$, and $\hat{f}^2(l)$ is considered as the energy of frequency $\chi_l$. In addition, according to equation~\ref{eq:lambda2}, $\lambda_l$ represents the deviation of frequency $\chi_l$ along all the connected vertices. Therefore, in this paper, we define the anomaly index of $\chi_l$ in $f$ as:
+\begin{equation}
+\label{eq:lambda3}
+\gamma_f(l;\mathbf{G})=\lambda_l\hat{f}^2(l)= \lambda_l<f,\chi_l>^2
+\end{equation}
+$\gamma_f(l;\mathbf{G})$ depends on two parts, frequency $\chi_l$'s deviation sum $\lambda_l$, and its energy $\hat{f}^2(l)$. If the energy $\hat{f}^2(l)$ is small, even if $\lambda_l$ is large, the anomaly index of $\chi_l$ might be small. Obviously, $\gamma_f(0;\mathbf{G})$ is always $0$ since $\lambda_0=0$. Further, we use the maximal value of $\gamma_f(l;\mathbf{G})$ to represent the global anomaly of $f$ on $\mathbf{G}$:
+\begin{equation}
+\label{eq:lambda4}
+\gamma_f(\mathbf{G})=\underset{0 \leq l \leq N-1}{\max}{\gamma_f(l;\mathbf{G})}.
+\end{equation}
+Here, $\gamma_f(l;\mathbf{G})$ refers to the anomaly extension of $\chi_l$ in $f$ defined on $\mathbf{G}$, instead of implying the anomaly extension of vertex $v_l$.
+For brevity, $\gamma_f(l;\mathbf{G})$  and $\gamma_f(\mathbf{G})$ are shortened as $\gamma_f(l)$ and $\gamma_f$, respectively, when $\mathbf{G}$ is known.
+
+Figure~\ref{fig:g1_gamma} plots the anomaly index $\gamma_f(l)$ of $f_1$ on graph $\mathbf{G_1}$, where $f_1=[2,3,4,3,2,1]$. The six markers on the dashed blue are the six eigenvalues of $\mathbf{G}$. The yellow line is $|\hat{f}(l)|$, and the pink line is the anomaly index, $\gamma_f(l)$ for frequency $\chi_l$. Because $\gamma_f(l)$ depends on both $\lambda_l$ and its power $\hat{f}^2(l)$, for the yellow line, even though $\chi_0$ has the strongest power, its deviation $\lambda_0 = 0$, thus $\gamma_f(0)=0$. On the other hand, $\chi_5$ has the largest deviation; but its power $|\hat{f}(5)|^2$ is small, which makes $\gamma_f(5)$ is also small. Considering the $\chi_4$ has a high deviation (eigenvalue) and a strong power of frequency, it has the largest anomaly index. To compare the influence of different $f$ on anomaly index, we show an example in Figure~\ref{fig:same_graph}. Setting $f_1=[2,3,4,3,2,1]$ and $f_2=[2,2,-3,4,3,1]$, we plot their anomaly index $\gamma_{f}$ and energy $|\hat{f}(l)|$ respectively.
+The light blue curves stand for anomaly indices and the
+yellow curves stand for $|\hat{f}(l)|$. The solid line stands for $f_1$, and the
+dashed line stands for $f_2$. As we can see, for high frequency $\chi_l$, $f_1$ has a larger power than $f_2$, and hence a higher anomaly index than $f_2$, where $\gamma_{f_1}=0.905$ and $\gamma_{f_2}=0.073$. This is consistent with that $f_1$ has larger deviations than $f_2$.
+
+As we discussed before, the anomaly index depends on graph structure and $f$. As shown in Figure~\ref{fig:same_graph}, different $f$ might have very different anomaly index because the power of $\chi_l$ distribution is different. Similarly, for the same signal $f$ on two different graphs, it might have very different anomaly indices. Figure~\ref{fig:f_on_g} shows two graphs with the same $f=[1,2,5,2]$. Figure~\ref{fig:new_graph} illustrates the anomaly index of $f$ on $\mathbf{G_2}$ and $\mathbf{G_3}$, where $\gamma_{f}(\mathbf{G_2})=0.073$ and $\gamma_{f}(\mathbf{G_3})=0.235$. (This is because in $\mathbf{G_3}$ because there is no edge connecting $v_2$ and $v_3$, the difference between $f(2)$ and $f(3)$ is not considered as an anomaly.)
+
+
+{\textbf{Remarks:}}
+In this subsection, we have introduced the anomaly index $\gamma_f(l;\mathbf{G})$ to measure the anomaly of $\chi_l$ in $f$ defined on $\mathbf{G}$ by combing the spectrum structure of $\mathbf{G}$ and $f$. $\gamma_f(l;\mathbf{G})$ depends on two parts: (1) the eigenvalue which reflects the deviations of $\chi_l$; (2) the $|\hat{f}(l)|^2$  which represents the power of $\chi_l$ in $f$. $\gamma_f(l;\mathbf{G})$ reflects the anomaly index of $\chi_l$. We use the maximal value of $\gamma_f(l;\mathbf{G})$ to define the anomaly index of $f$, which denotes the global anomaly index of $f$ on $\mathbf{G}$.
+
+
+
+\begin{figure}[t]
+	\centering
+	\subfigure[$\mathbf{G_2}$]{
+		\includegraphics[height=0.8in] {figures/f_on_g1.png}
+		\label{fig:scale1}
+	}
+	\subfigure[$\mathbf{G_3}$]{
+		\includegraphics[height=0.8in] {figures/f_on_g2.png}
+		\label{fig:scale2}
+	}
+    \vspace{-2mm}
+	\caption{$f=[1,2,5,2]$ on two graphs $\mathbf{G_2}$ and $\mathbf{G_3}$.}
+	\label{fig:f_on_g}
+\end{figure}
+
+\begin{figure}[t]
+	\centering
+    {
+		\includegraphics[width= 3in,height=1in] {figures/new_graph.png}
+		\label{fig:distribution2}
+	}
+    \vspace{-2mm}
+	\caption{Anomaly indices of $\mathbf{G_2}$ and $\mathbf{G_3}$.}
+	\label{fig:new_graph}
+\end{figure}
+
+
+\subsection{Graph Wavelets}
+\label{sec:graph_wavelet}
+Classic wavelet formalisms have been
+referred to as
+mathematical microscopes because of their capability to depict
+signal anomalies at different scales. In the case of complex networks, graph wavelets render the graph with good localization properties both in frequency and vertex (i.e. spatial) domains. Their scaling property allows us to zoom in/out of the underlying structure of the graph.
+
+%It is useful to analyze $f$ by taking into account the intrinsic geometric structure of the graph $\mathbf{G}$. In order to identify and exploit structure of  $f\in \mathbb{R}^N$, the spectral graph $\sigma({\mathcal{L}}):=\{\chi_l\}_{l=0}^{N-1}$ can be used as a dictionary of atoms~\cite{shuman_ACHA_2013}. Thus, $f$ can be decomposed as a linear combination of $\{\chi_l\}_{l=0}^{N-1}$ as
+%\begin{equation}
+%\label{eq:graph_fourier}
+%f(n)= \sum\limits_{l=0}^{N-1}\hat{f}(l)\chi_l(n)
+%\end{equation}
+%, where
+%\begin{equation}
+%\label{eq:graph_fourier1}
+%\hat{f}(l):= \sum\limits_{n=0}^{N-1}\chi^*_l(n)f(n)
+%\end{equation}
+%$\chi_l$ is called the Fourier frequency of $f(n)$ based on the graph $\mathbf{G}$, and $\hat{f}(l)$ is the corresponding Fourier coefficient.
+%Equation~\ref{eq:graph_fourier1} and Equation~\ref{eq:graph_fourier} are called Fourier transform and inverse Fourier transform, respectively.
+%Equation~\ref{eq:graph_fourier1} gives a clear representation of the Fourier components in $f(n)$.
+
+Recall that, from Equation~\ref{eq:Graph_Fourier_Transform1}, the anomaly pattern $\hat{f}(l)$ represents the anomaly components of $f$ from the whole graph perspective. However, information concerning the vertex-location cannot be identified from the Fourier transform. To address this issue, Hammond et al.~\cite{hammond2011wavelets} proposed constructing wavelet transforms functions over the vertices using weighted graphs, described in the following steps:
+
+\begin{enumerate}
+\item Define a continuous generating kernel functions $g(x)$ on $\mathbb{R}^+$;
+\item Then, select a central vertex $a \in {V}$ and scale $s$, set the frequency coefficients as $g(s\lambda_l)\chi^*_l(a)$ for each frequency component $\chi_l$;
+\item Finally, sum up all those frequency components $\chi_l$.
+\end{enumerate}
+In this way, the graph wavelet at central vertex $a$ is constructed as:
+\begin{equation}
+\label{eq:graphwaveletdefinition}
+\psi_{s,a}(n) = \sum\limits_{l=0}^{N-1}g(s\lambda_l)\chi_l^*(a)\chi_l(n)
+\end{equation}
+%After setting up the graph wavelet, the wavelet coefficients for $f$ can be defined as
+%\begin{equation}
+%\label{eq:graph_graphwavelet}
+%W_f(s,a)=<\psi_{s,a}, f>=\sum\limits_{l=0}^{N-1}g(s\lambda_l)\hat{f}(a)\chi_l(n)
+%\end{equation}
+%\paragraph{\textbf{Properties}}
+
+
+\begin{figure*}[t]
+	\centering
+	\subfigure[wavelet $\psi_{s_1,a}$]{
+		\includegraphics[width=1.4in, height=1.1in] {figures/wavelet1-2.png}
+		\label{fig:scale1}
+	}
+	\subfigure[wavelet $\psi_{s_2,a}$]{
+		\includegraphics[width=1.4in, height=1.1in] {figures/wavelet2.png}
+		\label{fig:scale2}
+	}
+\subfigure[$f(n)$ vs vertices]{
+		\includegraphics[width=1.4in, height=1.1in] {figures/wavelet3.png}
+		\label{fig:scale3}
+	}
+\subfigure[$W_f(s,a)$ vs scale $s$]{
+		\includegraphics[width=1.5in, height=1.1in] {figures/wavelet4.png}
+		\label{fig:scale4}
+	}
+    \vspace{-2mm}
+	\caption{Graph wavelet scale and graph wavelet coefficient.}
+	\label{fig:graphwaveletscale}
+\end{figure*}
+
+
+
+After setting up the graph wavelet, the wavelet coefficients for $f$ can be defined as
+\begin{equation}
+\label{eq:graph_graphwavelet}
+W_f(s,a)=<\psi_{s,a}, f>=\sum\limits_{l=0}^{N-1}g(s\lambda_l)\hat{f}(a)\chi_l(n)
+\end{equation}
+Similar to classical wavelets, graph wavelets obey following three properties, which are presented in detail in~\cite{hammond2011wavelets}.
+ \begin{enumerate}
+ \item \textbf{Reconstruction.}
+ When the kernel function $g(x)$ satisfies the admissibility condition and $g(0)=0$,  $f(n)$ can be reconstructed by the wavelet coefficients.
+\item \textbf{Discretization and Wavelet Frames.} For practical applications, the
+scale $s$ of graph wavelet $\psi_{s,a}$ should be sampled with a finite number of scales. Given a real valued function $h(x)$ satisfying
+\begin{equation}
+\hat{h}(\omega) = \sqrt{\int_\omega^\infty\frac{|\hat{g}(\omega')|^2}{\omega'}d{\omega'} },
+\end{equation}
+where $\hat{g}$ and $\hat{h}$ are the classical Fourier transform of $g(x)$ and $h(x)$, the scaling function $\phi_{a}(n)$ can be generated as:
+\begin{equation}
+\label{eq:graphscaledefinition}
+\phi_{a}(n) = \sum\limits_{l=0}^{N-1}h(\lambda_l)\chi_l^*(a)\chi_l(n)
+\end{equation}
+Accordingly, the scaling coefficients are defined as
+\begin{equation}
+S_f(a)=<\phi_a,f>
+\end{equation}
+Using scale set $\Theta:=\{s_j\}_{j=1}^J$, the discretized graph wavelet set $\{\psi_{s_j,a}\}_{j=1}^{J}$ $_{a=0}^{N-1}$, and scaling function set $\{\phi_a\}_{a=0}^{N-1}$ constitute a frame~\cite{hammond2011wavelets}.
+%According to frame theory~\cite{daubechies1992ten},
+$f\in \mathbb{R}^N$ can be reconstructed from those $NJ+J$ wavelet and scaling coefficients as
+\begin{equation}
+\label{eq:frame}
+f(n)=\sum_{a=v_0}^{v_{N-1}}[\sum_{j=1}^{J}W_{f}(s_j,a)\psi_{s,a}(n)+S_f(a)\phi_{a}(n)].
+\end{equation}For brevity, we assume that
+\begin{equation}
+\phi_a(n)=\psi_{s_0,a}(n),
+\end{equation}
+\begin{equation}
+S_f(a)=W_f(s_0,a).
+\end{equation}Therefore, equation~\ref{eq:frame} can be written as
+\begin{equation}
+\label{eq:frame2}
+f(n)=\sum_{a=v_0}^{v_{N-1}}\sum_{j=0}^{J}W_{f}(s_j,a)\psi_{s,a}(n).
+\end{equation}In the later part of this paper, we do not differentiate between
+scaling coefficient and wavelet coefficient.
+A detailed algorithm and treatment concerning the choice of $\Theta$ can be found in~\cite{hammond2011wavelets}.
+
+\item \textbf{Localization in vertex domains.} Given a central vertex $v_a$ and its graph wavelet $\psi_{s,a}(n)$, suppose the kernel function $g$ is $K+1$ times continuously differentiable, let $v_n$ be an vertex of $\mathbf{G}$ with $d_G(n,a)>K$, then there exists constants $D$ and $\beta$, such that
+\begin{equation}
+\label{equ:waveletbound}
+\frac{|\psi_{s,a}(n)|}{||\psi_{s,a}||}\leq D \beta
+\end{equation} for all $s<\beta$.
+$d_G(n,a)$ is the shortest path distance, which is the minimum number of edges in any path that connect vertices $v_n$ and $v_a$~\cite{hammond2011wavelets}. Equation~\ref{equ:waveletbound} shows for any vertex $v_n$ that is far away from center vertex $v_a$ ($d_G(n,a)>K$), $\frac{|\psi_{s,a}(n)|}{||\psi_{s,a}||}$ is upper bounded by $D\beta$. In other words, for vertex $v_n$ which is far away form vertex $v_a$, its wavelet value is linearly attenuated by scale $s$.  When the scale $s$ is small, their wavelet value of marginal vertices will be vanished quickly. The marginal vertices are those which satisfy equation~\ref{equ:waveletbound}. All the other vertices are called kernel vertices, denoted by $\mathcal{K}(s,a)$. Obviously, $\forall v_n \in \mathcal{K}(s,a)$,  $d_G(n,a)\le K$. Thus $\mathcal{K}(s,a)$ is automatically compact.
+Figure~\ref{fig:graphwaveletscale} shows two graph wavelets centered on the same vertex $a$, but with two different scales, $\psi_{s_1,a}$ and $\psi_{s_2, a}$, where $s_1<s_2$. The length of the vertical bar on each vertex denotes its graph wavelet value. The highlighted areas denote the kernel vertices ($d_G(n,a)\le 1$), and the others are marginal vertices. We can see that the wavelet values on marginal vertices in Figure~\ref{fig:scale1} are smaller than those in Figure~\ref{fig:scale2}. Figure~\ref{fig:scale3} is $f$'s distribution along each vertex, and Figure~\ref{fig:scale4} shows the wavelet coefficients with center node $a$ for different scales, which indicates that
+$W_f(s_2,a)$ has the largest value, and $W_f(s_3,a)$ with the smallest.
+ \end{enumerate}
+
+
+
+
+\begin{algorithm}[t]
+\centering
+%\captionsetup{font=scriptsize}
+\caption{Group Anomaly Detection using Graph Wavelets}
+{\footnotesize \begin{algorithmic}[1]
+\STATE {\bf Input:} graph and absenteeism score vector $\mathbf{G}(V,E;f^l)$ at time interval $l$, wavelet threshold $\omega_{th}$.
+\STATE {\bf Output:} abnormal burst group set $\mathcal{I}^{bur}$ and absenteeism group set $\mathcal{I}^{abs}$.	\STATE{compute graph spectrum $\sigma{(\mathbf{G})}$};
+\STATE{set graph wavelets $\psi_{s,a}(n)$ and scales set $\{s_j\}_{j=0}^J$ for all $a\in V$};
+\FORALL {center node $a\in V$ and $s_j \in \{s_j\}_{j=0}^J$}
+	    \STATE{compute $W_f(s_j, a)$};
+		\IF {$W_f(s_j, a) \ge \omega_{th}$}
+		    \STATE{add group $\mathcal{K}(s_j,a)$ to $\mathcal{I}^{bur}$}
+	    \ENDIF
+	
+		\IF {$W_f(s_j, a)\le -1*\omega_{th}$}
+		    \STATE{add group $\mathcal{K}(s_j,a)$ to $\mathcal{I}^{abs}$}
+	    \ENDIF	
+	
+\ENDFOR	
+\RETURN {abnormal burst group $\mathcal{I}^{bur}$ and absenteeism group set $\mathcal{I}^{abs}$.}
+\end{algorithmic}}
+\label{algo:event_detection1}
+\end{algorithm}
+
+
+
+\subsection{Group Anomaly Detection via Graph Wavelets}
+\label{sec:Group_Anomaly_Detection_via_graph_wavelet}
+According to Equation~\ref{equ:waveletbound}, when $s$ is small, the weights of the marginal vertices are severely attenuated.
+Essentially, $W_f(s,a)$ is equivalent to the sum of $f$ with large weights on kernel vertices, and small weights on marginal vertices.
+%, and can also be treated as a similarity between $f$ and $\psi'_{s,a}$.
+When $f$ is of uniformly large negative/positive values on kernel vertices, then $W_f(s,a)$ will be a large negative/positive value with scale $s$.
+
+The localization property of graph wavelets makes them appropriate for group anomaly detection since they automatically identify the kernel vertices from marginal vertices. These kernel vertices form a compact subset since each one of them is close to the same center vertex $a$, which avoids the compactness constraint condition in Equation~\ref{eq: problem_conventional}, thus reducing
+its computational complexity greatly. We propose our group anomaly detection algorithm based on graph wavelets in Algorithm~\ref{algo:event_detection1}. It iterates $NJ+J$ times, and each iteration selects a vertex as the center node, and computes the wavelet coefficient $W_f(s_j, a)$ with $J+1$ scales. When $W_f(s_j, a)$ is larger than some pre-set threshold $\omega_{th}$, it considers the corresponding kernel vertices, $\mathcal{K}(a)$, as an abnormal burst group. Similarly, when $W_f(s_j, a)$ is smaller than $-\omega_{th}$, it considers $\mathcal{K}(a)$ as an abnormal absenteeism group. The computational complexity is $O(J|V|^2)$.
+
+{\textbf{Remarks:}}
+\begin{enumerate}
+\item Graph wavelets form a frame where the function $f$ can be reconstructed by their coefficients.
+As long as the scale level $J$ is high enough, $f$ can be well decomposed into the frame basis. Thus, using graph wavelets to exploit the structure of functions defined on graphs is much more reasonable.
+\item Graph wavelets transform selected kernel vertices, $\mathcal{K}(s,a)$, that are close to the central vertex $a$, and attenuate the impact of other marginal vertices that are far away from $a$. The abnormal group selected by graph wavelet approach is automatically compact, and circumvent high computational complexity, which makes is easily adaptable to a wide variety of application scenarios.
+\item Graph wavelets are able to identify abnormal burst groups and absenteeism groups simultaneously without extra computation cost.
+\end{enumerate}
+
+
+
+\section{EXPERIMENTAL RESULTS} \label{sec:experiment}
+This section discusses the application of our approach for detecting group anomalies. We begin by briefly describing the dataset used for our experiments in Section~\ref{sec:data_collection} and then move on to discussing the implementation details of how the graph $\mathbf{G}$ is assembled; we construct the graph wavelets $\psi_{s,a}$ in Section~\ref{sec:experimental_setup}. The following section presents the group anomaly detection performance for identifying protest events.
+%In Section~\ref{sec:highlighted_results}, we describe three case studies that illustrate how the graph wavelet model is able to capture absenteeism events such as disaster scenarios.
+
+
+
+
+
+\begin{figure}[t]
+	\centering
+	\subfigure[]{
+		\includegraphics[width=1.4in,height=1.4in] {figures/brazil_graph_nn_5.png}
+		\label{fig:brazil_graph_nn_5}
+	}
+	\subfigure[]{
+		\includegraphics[width=1.4in,height=1.4in] {figures/brazil_zscore_31.png}
+		\label{fig:brazil_zscore_31}
+	}
+    \vspace{-2mm}
+	\caption{(a) Brazil's 5-nearest-neighbor graph: 5321 cities, where
+all edges' weights are $1$. (b) Brazil's z-score distribution on July 31, 2013. The color bar shows the scale of z-score.}
+	\label{fig:knn_zscore}
+\end{figure}
+
+\subsection{Data Collection and Preprocessing}
+\label{sec:data_collection}
+The study described in this paper uses tweets geolocated to Latin America and collected over a period of two years (Jan 2013 to Dec 2014). We query Datasift's streaming API to collect tweets that also have meta-information including geographical coordinates, Twitter places, user profile location, and `mentions information' about locations present in the body of the tweet.
+%Typically, we found that the number of tweets with readily available geo-coordinates is too low for conducting meaningful experiments. To circumvent this drawback, we use a geo-enrichment algorithm, which uses a gazetteer-based approach to look-up location names and geo-coordinates~\cite{ramakrishnan2014beating}.
+%To identify location-specific tweets, we configure the geocoding tool to first consider the tweet's text for mentions of place names and geographical landmarks (e.g., say, Plaza de la Independencia (Quito, Ecuador)).
+In cases when no geographical location was found in the tweet text, it then proceeds to process the geographical coordinates and the self-reported location string in user's profile metadata.
+%Using this geocoding tool, we were able to extract tweets corresponding to $598,300$ unique locations from Latin America.
+
+%To prepare a dataset of ground truth events for our study, we focused on specific types of disruptive societal events, such as natural disasters.
+%We assume that such events are the predominant reasons that can cause group absenteeism on social networks.
+%To discern when major events occurred, we retrieved records of natural disaster related events involving earthquakes, floods, and landslides from European Emergency Response Coordination Center(ERCC)~\footnote{http://erccportal.jrc.ec.europa.eu/} and World Top Stories Timeline~\footnote{http://www.mapreport.com/}.
+
+
+\begin{figure}[t]
+	\centering
+	\subfigure[wavelet $\psi_{s_1,a}$]{
+		\includegraphics[width=1.4in,height=1.4in] {figures/s1.png}
+		\label{fig:Brazil_W_coeff_date31_s3}
+	}
+	\subfigure[wavelet $\psi_{s_2,a}$]{
+		\includegraphics[width=1.4in,height=1.4in] {figures/s2.png}
+		\label{fig:Brazil_W_coeff_date31_s5}
+	}
+    \vspace{-2mm}
+	\caption{Graph wavelets with center city $v_{83}$. $s_1$ = 1.31, $s_2$ = 0.68.}
+	\label{fig:graphwaveletscale}
+\end{figure}
+
+\subsection{Experimental Setup}
+\label{sec:experimental_setup}
+
+\paragraph{Graph Setup}
+Each city $v_i$'s location is represented by its geographical coordinate pair $lat_i$ and $lon_i$. Instead of using the real physical distance, we define the distance of any two cities $v_i$ and $v_j$ as $d_{ij}=\sqrt{(lat_i-lat_j)^2+(lon_i-lon_j)^2}$. We setup graph $G$ as a $k$ neighbors graph, which means  each city is only  connected to its $k$-nearest-neighbors. In this paper, we set $k=5$, and all the edges' weights  in $G$ are 1. Figure~\ref{fig:brazil_graph_nn_5} shows Brazil's $5$ nearest-neighbor graph with 5321 cities.
+
+
+%\begin{figure}[t]
+%	\centering
+%	\subfigure[$W_f(s_1,a)$]{
+%		\includegraphics[width=1.2in,height=1.1in] {figures/wavelet_coeff_s1.png}
+%		\label{fig:Brazil_W_coeff_date31_s3}
+%	}
+%	\subfigure[$W_f(s_2,a)$]{
+%		\includegraphics[width=1.2in,height=1.1in] {figures/wavelet_coeff_s6.png}
+%		\label{fig:Brazil_W_coeff_date31_s5}
+%	}
+%	\caption{Graph wavelet coefficient $W_f(s_1,a)$ and $W_f(s_2,a)$.}
+%	\label{fig:graphwaveletcoefficient}
+%\end{figure}
+
+\paragraph{Absenteeism Score}
+Considering that
+the tweet volume $X$ varies vastly among cities, instead of using $X$ itself, we use the normalized value of z-score as absenteeism score, which is defined as:
+\begin{equation}
+\label{eq:Z_score}
+\textrm{z-score} = \frac{X-\mu}{\sigma}
+\end{equation}where $\mu$ is the mean value of the previous $30$ day tweets volume and $\sigma$ is the corresponding standard deviation. As shown in Figure~\ref{fig:brazil_zscore_31}, different
+node colors denote different z-score values.
+
+\paragraph{Kernel function $g(x)$ and scaling function $h(x)$}
+Our choice for the wavelet generating kernel function, $g(x)$, and scaling function $h(x)$ is motivated by our goal to achieve scale-dependent localization. We follow the kernel function setting in~\cite{hammond2011wavelets}, which behaves as a monic power near the origin, and has power law decay for large x. $g(x)$ and $h(x)$ are set as:
+\begin{equation}
+g(x) = \left\{ \begin{array}{rl}
+ x &\mbox{ for $x<1$} \\
+s(x) &\mbox{ for $1\leq x \leq 2$} \\
+ 2x^{-1} &\mbox{ for $x>2$} \\
+       \end{array} \right.
+\end{equation} where $s(x)=-5+11x-6x^2+x^3$.
+\begin{equation}
+h_{x}= 1.385\, exp(-(\frac{20x}{0.6\lambda_{max}})^4)
+\end{equation}
+The scale set $\{s_j\}_{j=1}^J$ is selected to be equally logarithmically spaced between the minimum and maximum scales $s_1$ and $s_J$, which are defined in~\cite{hammond2011wavelets}. We set $J=6$ in the experiment. Figure~\ref{fig:graphwaveletscale} shows two different scaled wavelets on Brazil's $5$-nearest-neighbor graph. Comparing Figure~\ref{fig:Brazil_W_coeff_date31_s3} with Figure~\ref{fig:Brazil_W_coeff_date31_s5}, we can see that, when scale increases, more cities (with deeper color) are selected.
+%Figure~\ref{fig:graphwaveletcoefficient} shows the corresponding wavelet coefficients.
+We also try another kernel function, i.e. the Mexican hat function, and find that as long as the kernel function monotonicity is the same,
+the differences in wavelet coefficients are negligible.
+
+\paragraph{Anomaly index $\gamma_f(G)$ and $\omega_{th}$}
+We claim that the event frequency $\eta$ is linear to $\gamma_f(\mathbf{G})$, described as
+\begin{equation}
+\label{eq:linear_equation}
+\eta = k_0*\gamma_f(\mathbf{G}) + k_1
+\end{equation}We use historical data to train $k_0$ and $k_1$ by least square error criterion. Once we know
+$k_0$ and $k_1$, given a new $\gamma_f'(\mathbf{G})$, the event number is estimated as $m=\left \lceil \eta' \right \rceil$. Subsequently the
+threshold $\omega_{th}$ is set as the $m_{th}$ largest $W_f(s_j,a)$, for all $a\in V$, $0\le j \le J$.
+
+
+\begin{table}[bt] %!htp
+\renewcommand{\arraystretch}{1.1}
+\caption{\label{table:models_compare} The performance of graph wavelet vs. baseline and Z-score.}
+\scriptsize
+\centering
+\begin{tabular}{ l | l |l | l | l}
+\hline
+\textbf{Country} & \textbf{Method}& \textbf{Precision}  & \textbf{Recall}  & \textbf{F-measure} \\
+\hline
+Brazil & Baseline & 0.052 &0.104 & 0.060\\
+       & Z-score & 0.117&0.307 & 0.159 \\
+ & Graph wavelet& 0.404 &0.262 & 0.292 \\
+\hline
+Mexico & Baseline & 0.074 &0.124 & 0.090 \\
+       & Z-score & 0.221 &0.147 & 0.168 \\
+ & Graph wavelet& 0.397 &0.384 & 0.408 \\
+\hline
+Venezuela & Baseline & 0.078 &0.053 & 0.059 \\
+       & Z-score & 0.197 &0.197 & 0.189 \\
+ & Graph wavelet& 0.292 &0.554 & 0.355 \\
+\hline
+\end{tabular}
+\end{table}
+
+
+
+\subsection{Performance}
+The data for this experiment was gathered for three countries experiencing major protest events, namely Brazil, Mexico and Venezuela, from Jan 2013 to Dec 2014. Taking the Gold Standard Report (GSR)~\cite{ramakrishnan2014beating} as representing ground truth, we applied our new graph wavelet approach as follows. For each day, we determine whether there is any anomaly. If there is, we
+identify the group of anomalous cities and compare this set
+with the GSR to determine if the selected cities actually experienced protest events on that day and thus show how many of the model's predictions matched the ground truth and how many did not. We use recall, precision, and the F-measure to evaluate the model's performance. To evaluate the effectiveness of our new graph wavelet approach, we also compared the results with those obtained using intuitive approaches such as frequency based random assignment, referred to here as the baseline model, and z-score based selection methods. The baseline model was built according to the historical protest records for each city and thus the model's predictions of the future occurrence of protests were based on frequency. The z-score approach entails
+selecting the group of cities whose z-score crosses the threshold with $|z-score|>3$.
+
+
+We compared the performance of these three models over the two year test period; the overall results are shown in Table~\ref{table:models_compare}. Generally speaking, the new graph wavelet approach exhibited better precision, recall, and F-measure scores than the baseline model across all three countries. The mean F-measure for the graph wavelet detection across models and countries is greater than that achieved by either of the other prediction models. Interestingly, the graph wavelet approach appears to operate at different efficiency levels for each country. %From Figure~\ref{fig:threecountry_performance} we can see that the graph wavelet model has a much higher recall in Venezuela than in Brazil, and an inferior quality of event detection in Mexico compared to Venezuela.
+
+\subsection{Case Studies}
+\label{sec:highlighted_results}
+
+\begin{figure}[t]
+	\centering
+	\subfigure[]{
+		\includegraphics[width=0.7in,height=0.8in] {figures/Chile_absent_zscore_3.png}
+		\label{fig:absent_Chile_score}
+	}
+	\hfill
+	\subfigure[]{
+		\includegraphics[width=0.7in,height=0.8in] {figures/Chile_absent_wavelet_3.png}
+		\label{fig:absent_Chile_wavelet}
+	}
+	\hfill
+	\subfigure[]{
+		\includegraphics[width=0.7in,height=0.8in] {figures/Chile_burst_zscore_3.png}
+		\label{fig:burst_Chile_score}
+	}
+	\hfill
+	\subfigure[]{
+		\includegraphics[width=0.7in,height=0.8in] {figures/Chile_burst_wavelet_3.png}
+		\label{fig:burst_Chile_wavelet}
+	}
+	\subfigure[]{
+		\includegraphics[width=1.4in,height=0.7in] {figures/earthquake_example_10min_circle.png}
+		\label{fig:earthquake}
+	}
+	\subfigure[]{
+		\includegraphics[width=1.4in,height=0.7in] {figures/earthquake_cloud.png}
+		\label{fig:earthquake-cloud}
+	}
+	\caption{Iquique Earthquake, Chile. (a-d) plots show differences in distributions of absenteeism score and wavelet coefficients calculated at 8:45 PM, April 1, 2014 (a-b) involving group absenteeism and later when burst in activity is captured at 11:00 AM, April 2, 2014 (c-d), respectively; (e) Tweet time series for Iquique on April 1, 2014; (f) Word cloud of tweets which mention `Iquique'.}
+\label{fig:case1_wavelet}
+\end{figure}
+
+
+
+\textbf{Case study 1: Iquique Earthquake, Chile.}
+On April 1, 2014 at around 8:46 PM (local time) a large earthquake struck off the coast of Chile, northwest of the port city of Iquique. We show the distribution of absenteeism scores and normalized wavelet coefficient values of the graph wavelets from the beginning of this event and throughout the subsequent 24 hours period. As shown in Figure~\ref{fig:absent_Chile_score}, we can clearly see absenteeism behavior, where the scores are dominated by very low (blue spectrum) z-score values (indicating high absenteeism). Likewise, Figure~\ref{fig:absent_Chile_wavelet} depicts low coefficient values for the northern regions of Chile, where the impact of the earthquake was most significant. As the news of earthquake spread throughout the next day, user activity on social media increased. This bursty behavior is clearly visible on April 2nd, at around 11:00 AM. Figure~\ref{fig:burst_Chile_score} shows that the z-scores increase (red spectrum) significantly and the coefficient value distribution (Figure~\ref{fig:burst_Chile_wavelet}) of the graph wavelets for northern regions of Chile are also in the red spectrum. The graph wavelet distributions in Figures~\ref{fig:absent_Chile_wavelet}~\ref{fig:burst_Chile_wavelet} show that the kernel area of the absenteeism/burst wavelets cover most large negative/positive values. In this way, the wavelets identify the abnormal negative/positive groups in absent/burst time intervals, respectively. Furthermore, a high correlation score of 0.726 was calculated for the wavelets from absenteeism and bursty periods of this episode, indicating a strong connection between the burst in activity and the previously observed absenteeism, signaling an event was detected.
+
+
+
+\begin{figure}[t]
+	\centering
+	\subfigure[]{
+		\includegraphics[width=0.7in, height=0.85in] {figures/Venuze_absent_zscore_3.png}
+		\label{fig:absent_Venezuela_score}
+	}
+	\subfigure[]{
+		\includegraphics[width=0.7in,height=0.85in] {figures/Venuze_absent_wavelet_3.png}
+		\label{fig:absent_Venezuela_wavelet}
+	}
+	\subfigure[]{
+		\includegraphics[width=0.7in,height=0.85in] {figures/Venuze_burst_zscore_3.png}
+		\label{fig:burst_Venezuela_score}
+	}
+	\subfigure[]{
+		\includegraphics[width=0.7in,height=0.85in] {figures/Venuze_burst_wavelet_3.png}
+		\label{fig:burst_Venezuela_wavelet}
+	}
+	\subfigure[]{
+		\includegraphics[width=1.4in,height=0.7in] {figures/Veneuela_power_count_all.png}
+		\label{fig:power}
+	}
+	\subfigure[]{
+		\includegraphics[width=1.4in,height=0.7in] {figures/power-English.png}
+		\label{fig:power-cloud}
+	}
+	\caption{Power Outage in Venezuela. (a-d) plots show differences in distributions of absenteeism score and wavelet coefficients calculated at 7:40 PM, December 2, 2013 (a-b) involving group absenteeism and later when burst in activity is captured at 8:45 PM in the same day (c-d), respectively; (e) Time series of tweets volume on December 2, 2013; (f) Word cloud of tweets mentioning `Caracas'.}
+\label{fig:case2_wavelet}
+\end{figure}
+
+
+The graph wavelets generated during the absenteeism time period Figure~\ref{fig:absent_Chile_wavelet} have a central node located in the city of `Iquique'. Looking at the time series (Figure~\ref{fig:earthquake}) of Twitter activity for Iquique and the associated word clouds (Figure~\ref{fig:earthquake-cloud}), we can see how events unfolded during the course of the earthquake. Strong absenteeism is observed from 8:45 PM to 9:20 PM. Examining user mobility via their geotagged tweets from the city of Iquique, on April 1, 2014, the user mobility fraction had increased by 15.4\%.
+
+
+\textbf{Case Study 2: Massive power outage in Venezuela.}
+A massive power outage in Venezuela plunged several major cities, including the capital city Caracas, into darkness around 7:40 PM (local time) on December 2, 2013.
+News media reported\footnote{http://www.usatoday.com/story/news/world/2013/12/\hskip0ex 02/\hskip0ex power-failure-caracas-venezuela/3823327/}, that the power outage lasted for 10-15 minutes, and the people of Caracas quickly took to the streets to protest.
+This action at the beginning of the episode coincides with the absenteeism period detected by our algorithm.
+The scatter plots showing the distribution of absenteeism scores and wavelet coefficients (Figures~\ref{fig:absent_Venezuela_score},~\ref{fig:absent_Venezuela_wavelet}) indicate that most of the low values are less than $0$.
+Shortly after the absenteeism, we detected a huge burst in activity around 8:45 PM, signaled by the increased z-scores (low absenteeism) and coefficient values (Figures~\ref{fig:burst_Venezuela_score},~\ref{fig:burst_Venezuela_wavelet}). A correlation score of 0.617 was calculated when comparing the graph wavelets from the absentee and burst periods.
+
+
+The absenteeism related graph wavelets indicate that the city of Caracas was the central node. Taking a close look at the Twitter volume and tweets from Caracas and surrounding cities, there is a sharp decline in user activity around 7:40 PM and then a huge spike starting at 8:45 PM. The word clouds for the tweet content show a very similar story, with dominant words being `light' and `blackout'; the Spanish phrase `sin luz', which means `no light', became a trending hashtag \#sinluz on Twitter.
+
+
+\subsection{How sensitive is graph anomaly detection to parameters?}
+In the graph wavelet anomaly detection approach, there are two main parameters, which are the scale $J$ and wavelet threshold $w_{th}$. Figures~\ref{fig:scale-S-wth} illustrate the performance of graph anomaly detection by varying $S$ and $w_{th}$, respectively. The performance for different values of $J$ and $w_{th}$ is relatively stable.
+
+\begin{figure}[h]
+	\centering
+    {
+		\includegraphics[width= 3in,height=1in] {figures/scale-S.png}
+		\label{fig:scale-S}
+	}
+    \vspace{-2mm}
+	\caption{Sensitivity analysis on scale $J$ and $w_{th}$. x-axis represents the varying values for the parameter and y-axis denotes the test accuracy.}
+	\label{fig:scale-S-wth}
+\end{figure}
+
+
+
+\section{Discussion} \label{sec:conclusion}
+Previous research has demonstrated the importance of burst detection in Twitter. In this study, we argue that group absenteeism can also be vital for detecting disruptive societal events. Modeling absenteeism is crucial because it can serve as a surrogate signal for event detection. %For example, in the case of the Iquique earthquake, our new algorithm detected absenteeism behavior on Twitter that was closely followed by a spike in user activity.
+Unlike traditional event detection methods, which identify real time events only after they have occurred because the burst signal must first be identified, an absenteeism signal can be observed much earlier, thus providing greater foresight into future events.
+Our approach addresses this shortcoming by successfully modeling the `lull before the storm'.
+%In this study we defined an absenteeism score for groups of cities within the Twitter network and apply it to construct wavelet transforms that not only detect anomalous subgraphs (including both burst and absenteeism groups) at different scales, but can also be used to identify the geographical focal point of the anomaly.
+This means that our proposed approach offers a significant advantage over current strategies that focus solely on modeling spike or burst related patterns for event detection.
+
+%Disruptive events which cause Twitter absenteeism, but also render burst detection methods less useful. In the case of the Natal protest event, a large portion of people were walking on the street to protest, and the city's tweet absenteeism score reached a minimum. During the Brazil floods, the tweets tended to become inactive as the severity of the floods increased. It reached the lowest point when the flood was at its worst. In these two cases in particular, using a burst signal alone it can be difficult to identify such events.
+
+%Existing approaches for event detection also suffer from an inherent latency in their detection process. This is because they are based on the use of bursty signals from abnormal activity on social networks, but miss the absenteeism signal that often precedes these bursts. Our approach addresses this shortcoming by successfully modeling the `lull before the storm'. In this study we defined an absenteeism score for groups of cities within the Twitter network and apply it to construct wavelet transforms that not only detect anomalous subgraphs (including both burst and absenteeism groups) at different scales, but can also be used to identify the geographical focal point of the anomaly. This localization property of graph wavelets guarantees that the selected groups are compact automatically. The identified abnormal groups have been verified using real-world datasets and proven to be indicative of events such as civil protests.
+% or natural disasters.
+
+\section{Acknowledgment}
+Supported by the Intelligence Advanced Research Projects Activity (IARPA) via Department of Interior National Business Center (DoI/NBC) contract number D12PC000337, the US Government is authorized to reproduce and distribute reprints of this work for Governmental purposes notwithstanding any copyright annotation thereon. Disclaimer: The views and conclusions contained herein are those of the authors and should not be interpreted as necessarily representing the official policies or endorsements, either expressed or implied, of IARPA, DoI/NBC, or the US Government.
+
+
+\bibliographystyle{abbrv}
+\bibliography{sigproc}
+\end{document}
+
+% End of ltexpprt.tex
+
+
+%
+%\begin{figure}[t]
+%	\centering
+%	\subfigure[Brazil]{
+%		\includegraphics[width= 2.6in,height=1.4in] {figures/performance_compare_bar_graph_brazil.png}
+%		\label{Brazil_performance}
+%	}
+%    \vspace{-2mm}
+%	\hfill
+%	\subfigure[Mexico]{
+%		\includegraphics[width= 2.6in,height=1.4in] {figures/performance_compare_bar_graph_mexico.png}
+%		\label{Mexico_performance}
+%	}
+%    \vspace{-2mm}
+%	\hfill
+%	\subfigure[Venezuela]{
+%		\includegraphics[width= 2.6in,height=1.4in] {figures/performance_compare_bar_graph_venezuela.png}
+%		\label{Venezuela_performance}
+%	}
+%    \vspace{-2mm}
+%	\caption{Brazil, Mexico and Venezuela protest detection performance.}
+%\label{fig:threecountry_performance}
+%\end{figure}
+
+
+
+
+%\subsection{Case Studies}
+%\label{sec:highlighted_results}
+%
+%\begin{figure}[t]
+%	\centering
+%	\subfigure[]{
+%		\includegraphics[width=0.7in,height=0.8in] {figures/Chile_absent_zscore_3.png}
+%		\label{fig:absent_Chile_score}
+%	}
+%	\hfill
+%	\subfigure[]{
+%		\includegraphics[width=0.7in,height=0.8in] {figures/Chile_absent_wavelet_3.png}
+%		\label{fig:absent_Chile_wavelet}
+%	}
+%	\hfill
+%	\subfigure[]{
+%		\includegraphics[width=0.7in,height=0.8in] {figures/Chile_burst_zscore_3.png}
+%		\label{fig:burst_Chile_score}
+%	}
+%	\hfill
+%	\subfigure[]{
+%		\includegraphics[width=0.7in,height=0.8in] {figures/Chile_burst_wavelet_3.png}
+%		\label{fig:burst_Chile_wavelet}
+%	}
+%	\subfigure[]{
+%		\includegraphics[width=1.4in,height=0.7in] {figures/earthquake_example_10min_circle.png}
+%		\label{fig:earthquake}
+%	}
+%	\subfigure[]{
+%		\includegraphics[width=1.4in,height=0.7in] {figures/earthquake_cloud.png}
+%		\label{fig:earthquake-cloud}
+%	}
+%	\caption{Iquique Earthquake, Chile. (a-d) plots show differences in distributions of absenteeism score and wavelet coefficients calculated at 8:45 PM, April 1, 2014 (a-b) involving group absenteeism and later when burst in activity is captured at 11:00 AM, April 2, 2014 (c-d), respectively; (e) Tweet time series for Iquique on April 1, 2014; (f) Word cloud of tweets which mention `Iquique'.}
+%\label{fig:case1_wavelet}
+%\end{figure}
+%
+%
+%
+%\textbf{Case study 1: Iquique Earthquake, Chile.}
+%On April 1, 2014 at around 8:46 PM (local time) a large earthquake struck off the coast of Chile, northwest of the port city of Iquique. We show the distribution of absenteeism scores and normalized wavelet coefficient values of the graph wavelets from the beginning of this event and throughout the subsequent 24 hours period. As shown in Figure~\ref{fig:absent_Chile_score}, we can clearly see absenteeism behavior, where the scores are dominated by very low (blue spectrum) z-score values (indicating high absenteeism). Likewise, Figure~\ref{fig:absent_Chile_wavelet} depicts low coefficient values for the northern regions of Chile, where the impact of the earthquake was most significant. As the news of earthquake spread throughout the next day, user activity on social media increased. This bursty behavior is clearly visible on April 2nd, at around 11:00 AM. Figure~\ref{fig:burst_Chile_score} shows that the z-scores increase (red spectrum) significantly and the coefficient value distribution (Figure~\ref{fig:burst_Chile_wavelet}) of the graph wavelets for northern regions of Chile are also in the red spectrum. The graph wavelet distributions in Figures~\ref{fig:absent_Chile_wavelet}~\ref{fig:burst_Chile_wavelet} show that the kernel area of the absenteeism/burst wavelets cover most large negative/positive values. In this way, the wavelets identify the abnormal negative/positive groups in absent/burst time intervals, respectively. Furthermore, a high correlation score of 0.726 was calculated for the wavelets from absenteeism and bursty periods of this episode, indicating a strong connection between the burst in activity and the previously observed absenteeism, signaling an event was detected.
+%
+%
+%
+%\begin{figure}[t]
+%	\centering
+%	\subfigure[]{
+%		\includegraphics[width=0.7in, height=0.85in] {figures/Venuze_absent_zscore_3.png}
+%		\label{fig:absent_Venezuela_score}
+%	}
+%	\subfigure[]{
+%		\includegraphics[width=0.7in,height=0.85in] {figures/Venuze_absent_wavelet_3.png}
+%		\label{fig:absent_Venezuela_wavelet}
+%	}
+%	\subfigure[]{
+%		\includegraphics[width=0.7in,height=0.85in] {figures/Venuze_burst_zscore_3.png}
+%		\label{fig:burst_Venezuela_score}
+%	}
+%	\subfigure[]{
+%		\includegraphics[width=0.7in,height=0.85in] {figures/Venuze_burst_wavelet_3.png}
+%		\label{fig:burst_Venezuela_wavelet}
+%	}
+%	\subfigure[]{
+%		\includegraphics[width=1.4in,height=0.7in] {figures/Veneuela_power_count_all.png}
+%		\label{fig:power}
+%	}
+%	\subfigure[]{
+%		\includegraphics[width=1.4in,height=0.7in] {figures/power-English.png}
+%		\label{fig:power-cloud}
+%	}
+%	\caption{Power Outage in Venezuela. (a-d) plots show differences in distributions of absenteeism score and wavelet coefficients calculated at 7:40 PM, December 2, 2013 (a-b) involving group absenteeism and later when burst in activity is captured at 8:45 PM in the same day (c-d), respectively; (e) Time series of tweets volume on December 2, 2013; (f) Word cloud of tweets mentioning `Caracas'.}
+%\label{fig:case2_wavelet}
+%\end{figure}
+%
+%
+%The graph wavelets generated during the absenteeism time period Figure~\ref{fig:absent_Chile_wavelet} have a central node located in the city of `Iquique'. Looking at the time series (Figure~\ref{fig:earthquake}) of Twitter activity for Iquique and the associated word clouds (Figure~\ref{fig:earthquake-cloud}), we can see how events unfolded during the course of the earthquake. Strong absenteeism is observed from 8:45 PM to 9:20 PM. Examining user mobility via their geotagged tweets from the city of Iquique, on April 1, 2014, the user mobility fraction had increased by 15.4\%.
+%
+%
+%\textbf{Case Study 2: Massive power outage in Venezuela.}
+%A massive power outage in Venezuela plunged several major cities, including the capital city Caracas, into darkness around 7:40 PM (local time) on December 2, 2013.
+%News media reported\footnote{http://www.usatoday.com/story/news/world/2013/12/\hskip0ex 02/\hskip0ex power-failure-caracas-venezuela/3823327/}, that the power outage lasted for 10-15 minutes, and the people of Caracas quickly took to the streets to protest.
+%This action at the beginning of the episode coincides with the absenteeism period detected by our algorithm.
+%The scatter plots showing the distribution of absenteeism scores and wavelet coefficients (Figures~\ref{fig:absent_Venezuela_score},~\ref{fig:absent_Venezuela_wavelet}) indicate that most of the low values are less than $0$.
+%Shortly after the absenteeism, we detected a huge burst in activity around 8:45 PM, signaled by the increased z-scores (low absenteeism) and coefficient values (Figures~\ref{fig:burst_Venezuela_score},~\ref{fig:burst_Venezuela_wavelet}). A correlation score of 0.617 was calculated when comparing the graph wavelets from the absentee and burst periods.
+%
+%
+%The absenteeism related graph wavelets indicate that the city of Caracas was the central node. Taking a close look at the Twitter volume and tweets from Caracas and surrounding cities, there is a sharp decline in user activity around 7:40 PM and then a huge spike starting at 8:45 PM. The word clouds for the tweet content show a very similar story, with dominant words being `light' and `blackout'; the Spanish phrase `sin luz', which means `no light', became a trending hashtag \#sinluz on Twitter.
+
+
+%
+%\begin{figure}[t]
+%	\centering
+%	\subfigure[]{
+%		\includegraphics[height=0.9in] {figures/Argentina_absent_zscore_3.png}
+%		\label{fig:absent_Argentina_score}
+%	}
+%	\subfigure[]{
+%		\includegraphics[height=0.9in] {figures/Argentina_absent_wavelet_3.png}
+%		\label{fig:absent_Argentina_wavelet}
+%	}
+%	\subfigure[]{
+%		\includegraphics[width=1.3in, height=0.7in] {figures/holiday-cloud.png}
+%		\label{fig:holiday-cloud}
+%	}
+%	\caption{The Christmas Day in Argentina: (a-b) plots show distributions of (a) absenteeism score and (b) wavelet coefficients calculated on December 25, 2013; (c) Time series comparing absenteeism score and user mobility corresponding to tweets between December 5 - 25, 2013.}
+%\label{fig:case3_wavelet}
+%\end{figure}
+%
+%
+%\textbf{Case Study 3: Christmas Day.}
+%As noted earlier, absenteeism behavior may not always lead to a spike in activity. For example, our model detected strong absenteeism in social media activity for major holidays such as Christmas Day that was not followed by a bursty period in Twitter activity. This is likely because people tend to travel to visit family during the holidays. This is supported by low values of z-scores or high absenteeism in Figure~\ref{fig:absent_Argentina_score} and wavelet coefficients in Figure~\ref{fig:absent_Argentina_wavelet} with respect to Argentinian tweets on December 25, 2013. Hence, no subsequent burst period was detected for this event. Interestingly as Christmas Day approached, Figure~\ref{fig:holiday-cloud} shows that user mobility gradually increases and the z-score decreases, signaling greater absenteeism. We used Pearson's correlation coefficient to measure the two time series and found a correlation score of -0.94.

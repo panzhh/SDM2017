@@ -1,0 +1,140 @@
+\begin{thebibliography}{10}
+
+\bibitem{aggarwal2012event}
+C.~C. Aggarwal and K.~Subbian.
+\newblock Event detection in social streams.
+\newblock In {\em Proc. SDM'12}, volume~12, pages 624--635, 2012.
+
+\bibitem{akoglu2009anomaly}
+L.~Akoglu, M.~McGlohon, and C.~Faloutsos.
+\newblock Anomaly detection in large graphs.
+\newblock In {\em In CMU-CS-09-173 Technical Report}. Citeseer, 2009.
+
+\bibitem{akoglu2015graph}
+L.~Akoglu, H.~Tong, and D.~Koutra.
+\newblock Graph based anomaly detection and description: a survey.
+\newblock {\em Data Mining and Knowledge Discovery}, 29(3):626--688, 2015.
+
+\bibitem{calderara2011detecting}
+S.~Calderara, U.~Heinemann, A.~Prati, R.~Cucchiara, and N.~Tishby.
+\newblock Detecting anomalies in people’s trajectories using spectral graph
+  analysis.
+\newblock {\em Computer Vision and Image Understanding}, 115(8):1099--1111,
+  2011.
+
+\bibitem{shuman_ACHA_2013}
+{D. I Shuman}, B.~Ricaud, and P.~Vandergheynst.
+\newblock Vertex-frequency analysis on graphs.
+\newblock {\em Applied and Computational Harmonic Analysis}, 2013.
+
+\bibitem{eisenstein2010latent}
+J.~Eisenstein, B.~O'Connor, N.~A. Smith, and E.~P. Xing.
+\newblock A latent variable model for geographic lexical variation.
+\newblock In {\em Proc. EMNLP'10}, pages 1277--1287, 2010.
+
+\bibitem{ghosh2003wavelet}
+S.~Ghosh-Dastidar and H.~Adeli.
+\newblock Wavelet-clustering-neural network model for freeway incident
+  detection.
+\newblock {\em Computer-Aided Civil and Infrastructure Engineering},
+  18(5):325--338, 2003.
+
+\bibitem{hammond2011wavelets}
+D.~K. Hammond, P.~Vandergheynst, and R.~Gribonval.
+\newblock Wavelets on graphs via spectral graph theory.
+\newblock {\em Applied and Computational Harmonic Analysis}, 30(2):129--150,
+  2011.
+
+\bibitem{henderson2010metric}
+K.~Henderson, T.~Eliassi-Rad, C.~Faloutsos, L.~Akoglu, L.~Li, K.~Maruhashi,
+  B.~A. Prakash, and H.~Tong.
+\newblock Metric forensics: a multi-level approach for mining volatile graphs.
+\newblock In {\em Proc. KDD'10}, pages 163--172. ACM, 2010.
+
+\bibitem{hong2012discovering}
+L.~Hong, A.~Ahmed, S.~Gurumurthy, A.~J. Smola, and K.~Tsioutsiouliklis.
+\newblock Discovering geographical topics in the twitter stream.
+\newblock In {\em Proc. WWW'12}, pages 769--778, 2012.
+
+\bibitem{lappas2009burstiness}
+T.~Lappas, B.~Arai, M.~Platakis, D.~Kotsakos, and D.~Gunopulos.
+\newblock On burstiness-aware search for document sequences.
+\newblock In {\em Proc. KDD'09}, pages 477--486, 2009.
+
+\bibitem{noble2003graph}
+C.~C. Noble and D.~J. Cook.
+\newblock Graph-based anomaly detection.
+\newblock In {\em Proc. KDD'03}, pages 631--636. ACM, 2003.
+
+\bibitem{ramakrishnan2014beating}
+N.~Ramakrishnan, P.~Butler, S.~Muthiah, N.~Self, R.~Khandpur, P.~Saraf,
+  W.~Wang, J.~Cadena, A.~Vullikanti, G.~Korkmaz, et~al.
+\newblock `beating the news' with embers: forecasting civil unrest using open
+  source indicators.
+\newblock In {\em Proc. KDD'14}, pages 1799--1808, 2014.
+
+\bibitem{rozenshtein2014event}
+P.~Rozenshtein, A.~Anagnostopoulos, A.~Gionis, and N.~Tatti.
+\newblock Event detection in activity networks.
+\newblock In {\em Proc. KDD'14}, pages 1176--1185, 2014.
+
+\bibitem{rustamov2013wavelets}
+R.~Rustamov and L.~Guibas.
+\newblock Wavelets on graphs via deep learning.
+\newblock In {\em Proc. NIPS'13}, pages 998--1006, 2013.
+
+\bibitem{sakaki2010earthquake}
+T.~Sakaki, M.~Okazaki, and Y.~Matsuo.
+\newblock Earthquake shakes twitter users: real-time event detection by social
+  sensors.
+\newblock In {\em Proc. WWW'10}, pages 851--860, 2010.
+
+\bibitem{sayyadi2009event}
+H.~Sayyadi, M.~Hurst, and A.~Maykov.
+\newblock Event detection and tracking in social streams.
+\newblock In {\em ICWSM'09}, 2009.
+
+\bibitem{2000wavecluster}
+G.~Sheikholeslami, S.~Chatterjee, and A.~Zhang.
+\newblock Wavecluster: a wavelet-based clustering approach for spatial data in
+  very large databases.
+\newblock {\em The VLDB Journal}, 8(3-4):289--304, 2000.
+
+\bibitem{shuman2015vertex}
+D.~I. Shuman, B.~Ricaud, and P.~Vandergheynst.
+\newblock Vertex-frequency analysis on graphs.
+\newblock {\em Applied and Computational Harmonic Analysis}, 2015.
+
+\bibitem{silva2016graph}
+A.~Silva, X.-H. Dang, P.~Basu, A.~K. Singh, and A.~Swami.
+\newblock Graph wavelets via sparse cuts.
+\newblock In {\em Proc. KDD'16}. ACM, 2016.
+
+\bibitem{sun2005neighborhood}
+J.~Sun, H.~Qu, D.~Chakrabarti, and C.~Faloutsos.
+\newblock Neighborhood formation and anomaly detection in bipartite graphs.
+\newblock In {\em Data Mining, Fifth IEEE International Conference on}, pages
+  8--pp. IEEE, 2005.
+
+\bibitem{tremblay2014graph}
+N.~Tremblay and P.~Borgnat.
+\newblock Graph wavelets for multiscale community mining.
+\newblock {\em Signal Processing, IEEE Transactions on}, 62(20):5227--5239,
+  2014.
+
+\bibitem{weng2011event}
+J.~Weng and B.-S. Lee.
+\newblock Event detection in twitter.
+\newblock {\em ICWSM'11}, pages 401--408, 2011.
+
+\bibitem{yin2011geographical}
+Z.~Yin, L.~Cao, J.~Han, C.~Zhai, and T.~Huang.
+\newblock Geographical topic discovery and comparison.
+\newblock In {\em Proc. WWW'11}, pages 247--256, 2011.
+
+\bibitem{yu2014glad}
+R.~Yu, X.~He, and Y.~Liu.
+\newblock Glad: group anomaly detection in social media analysis.
+\newblock In {\em Proc. KDD'14}, pages 372--381. ACM, 2014.
+
+\end{thebibliography}

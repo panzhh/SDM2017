@@ -1,0 +1,646 @@
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=pdflatex 2015.3.24)  4 JAN 2017 21:29
+entering extended mode
+**ltexpprt.tex
+(D:\Paper\2017-SDM\soda2e-SDM-submit\ltexpprt.tex
+LaTeX2e <2011/06/27>
+Babel <v3.8m> and hyphenation patterns for loaded.
+(C:\CTEX\MiKTeX\tex\latex\base\article.cls
+Document Class: article 2007/10/19 v1.4h Standard LaTeX document class
+(C:\CTEX\MiKTeX\tex\latex\base\leqno.clo
+File: leqno.clo 1998/08/17 v1.1c Standard LaTeX option (left equation numbers)
+)
+(C:\CTEX\MiKTeX\tex\latex\base\size10.clo
+File: size10.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
+)
+\c@part=\count79
+\c@section=\count80
+\c@subsection=\count81
+\c@subsubsection=\count82
+\c@paragraph=\count83
+\c@subparagraph=\count84
+\c@figure=\count85
+\c@table=\count86
+\abovecaptionskip=\skip41
+\belowcaptionskip=\skip42
+\bibindent=\dimen102
+)
+(D:\Paper\2017-SDM\soda2e-SDM-submit\ltexpprt.sty
+*** ACM/SIAM LaTeX2E Preprint Series macro package, version 1.0, September 5, 1
+996 ***
+\outerparskip=\skip43
+\c@@theorem=\count87
+\c@@algorithm=\count88
+\c@lemma=\count89
+\c@fact=\count90
+\c@corollary=\count91
+\c@axiom=\count92
+\c@cond=\count93
+\c@property=\count94
+\c@proposition=\count95
+\c@Conjecture=\count96
+\c@Definition=\count97
+\c@Lemma=\count98
+\c@Remark=\count99
+) (C:\CTEX\UserData\tex\latex\subfigure\subfigure.sty
+Package: subfigure 2002/07/30 v2.1.4 subfigure package
+\subfigtopskip=\skip44
+\subfigcapskip=\skip45
+\subfigcaptopadj=\dimen103
+\subfigbottomskip=\skip46
+\subfigcapmargin=\dimen104
+\subfiglabelskip=\skip47
+\c@subfigure=\count100
+\c@lofdepth=\count101
+\c@subtable=\count102
+\c@lotdepth=\count103
+
+****************************************
+* Local config file subfigure.cfg used *
+****************************************
+(C:\CTEX\UserData\tex\latex\subfigure\subfigure.cfg)
+\subfig@top=\skip48
+\subfig@bottom=\skip49
+)
+(C:\CTEX\UserData\tex\latex\xcolor\xcolor.sty
+Package: xcolor 2007/01/21 v2.11 LaTeX color extensions (UK)
+
+(C:\CTEX\MiKTeX\tex\latex\00miktex\color.cfg
+File: color.cfg 2007/01/18 v1.5 color configuration of teTeX/TeXLive
+)
+Package xcolor Info: Driver file: pdftex.def on input line 225.
+
+(C:\CTEX\MiKTeX\tex\latex\pdftex-def\pdftex.def
+File: pdftex.def 2011/05/27 v0.06d Graphics/color for pdfTeX
+
+(C:\CTEX\MiKTeX\tex\generic\oberdiek\infwarerr.sty
+Package: infwarerr 2010/04/08 v1.3 Providing info/warning/message (HO)
+)
+(C:\CTEX\MiKTeX\tex\generic\oberdiek\ltxcmds.sty
+Package: ltxcmds 2011/04/18 v1.20 LaTeX kernel commands for general use (HO)
+)
+\Gread@gobject=\count104
+)
+Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1337.
+Package xcolor Info: Model `hsb' substituted by `rgb' on input line 1341.
+Package xcolor Info: Model `RGB' extended on input line 1353.
+Package xcolor Info: Model `HTML' substituted by `rgb' on input line 1355.
+Package xcolor Info: Model `Hsb' substituted by `hsb' on input line 1356.
+Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1357.
+Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1358.
+Package xcolor Info: Model `Gray' substituted by `gray' on input line 1359.
+Package xcolor Info: Model `wave' substituted by `hsb' on input line 1360.
+)
+(C:\CTEX\MiKTeX\tex\latex\ltxmisc\url.sty
+\Urlmuskip=\muskip10
+Package: url 2006/04/12  ver 3.3  Verb mode for urls, etc.
+)
+(C:\CTEX\MiKTeX\tex\latex\jknappen\mathrsfs.sty
+Package: mathrsfs 1996/01/01 Math RSFS package v1.0 (jk)
+\symrsfs=\mathgroup4
+)
+(C:\CTEX\MiKTeX\tex\latex\amsfonts\amsfonts.sty
+Package: amsfonts 2009/06/22 v3.00 Basic AMSFonts support
+\@emptytoks=\toks14
+\symAMSa=\mathgroup5
+\symAMSb=\mathgroup6
+LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
+(Font)                  U/euf/m/n --> U/euf/b/n on input line 96.
+)
+(C:\CTEX\MiKTeX\tex\latex\ulem\ulem.sty
+\UL@box=\box26
+\UL@hyphenbox=\box27
+\UL@skip=\skip50
+\UL@hook=\toks15
+\UL@height=\dimen105
+\UL@pe=\count105
+\UL@pixel=\dimen106
+\ULC@box=\box28
+Package: ulem 2011/03/18
+\ULdepth=\dimen107
+)
+(C:\CTEX\MiKTeX\tex\latex\tools\array.sty
+Package: array 2008/09/09 v2.4c Tabular extension package (FMi)
+\col@sep=\dimen108
+\extrarowheight=\dimen109
+\NC@list=\toks16
+\extratabsurround=\skip51
+\backup@length=\skip52
+)
+(C:\CTEX\MiKTeX\tex\latex\ams\math\amsmath.sty
+Package: amsmath 2000/07/18 v2.13 AMS math features
+\@mathmargin=\skip53
+
+For additional information on amsmath, use the `?' option.
+(C:\CTEX\MiKTeX\tex\latex\ams\math\amstext.sty
+Package: amstext 2000/06/29 v2.01
+
+(C:\CTEX\MiKTeX\tex\latex\ams\math\amsgen.sty
+File: amsgen.sty 1999/11/30 v2.0
+\@emptytoks=\toks17
+\ex@=\dimen110
+))
+(C:\CTEX\MiKTeX\tex\latex\ams\math\amsbsy.sty
+Package: amsbsy 1999/11/29 v1.2d
+\pmbraise@=\dimen111
+)
+(C:\CTEX\MiKTeX\tex\latex\ams\math\amsopn.sty
+Package: amsopn 1999/12/14 v2.01 operator names
+)
+\inf@bad=\count106
+LaTeX Info: Redefining \frac on input line 211.
+\uproot@=\count107
+\leftroot@=\count108
+LaTeX Info: Redefining \overline on input line 307.
+\classnum@=\count109
+\DOTSCASE@=\count110
+LaTeX Info: Redefining \ldots on input line 379.
+LaTeX Info: Redefining \dots on input line 382.
+LaTeX Info: Redefining \cdots on input line 467.
+\Mathstrutbox@=\box29
+\strutbox@=\box30
+\big@size=\dimen112
+LaTeX Font Info:    Redeclaring font encoding OML on input line 567.
+LaTeX Font Info:    Redeclaring font encoding OMS on input line 568.
+\macc@depth=\count111
+\c@MaxMatrixCols=\count112
+\dotsspace@=\muskip11
+\c@parentequation=\count113
+\dspbrk@lvl=\count114
+\tag@help=\toks18
+\row@=\count115
+\column@=\count116
+\maxfields@=\count117
+\andhelp@=\toks19
+\eqnshift@=\dimen113
+\alignsep@=\dimen114
+\tagshift@=\dimen115
+\tagwidth@=\dimen116
+\totwidth@=\dimen117
+\lineht@=\dimen118
+\@envbody=\toks20
+\multlinegap=\skip54
+\multlinetaggap=\skip55
+\mathdisplay@stack=\toks21
+LaTeX Info: Redefining \[ on input line 2666.
+LaTeX Info: Redefining \] on input line 2667.
+)
+(C:\CTEX\MiKTeX\tex\latex\graphics\graphics.sty
+Package: graphics 2009/02/05 v1.0o Standard LaTeX Graphics (DPC,SPQR)
+
+(C:\CTEX\MiKTeX\tex\latex\graphics\trig.sty
+Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
+)
+(C:\CTEX\MiKTeX\tex\latex\00miktex\graphics.cfg
+File: graphics.cfg 2007/01/18 v1.5 graphics configuration of teTeX/TeXLive
+)
+Package graphics Info: Driver file: pdftex.def on input line 91.
+)
+(C:\CTEX\MiKTeX\tex\latex\graphics\graphicx.sty
+Package: graphicx 1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
+
+(C:\CTEX\MiKTeX\tex\latex\graphics\keyval.sty
+Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
+\KV@toks@=\toks22
+)
+\Gin@req@height=\dimen119
+\Gin@req@width=\dimen120
+)
+(C:\CTEX\UserData\tex\latex\algorithms\algorithm.sty
+Package: algorithm 2009/08/24 v0.1 Document Style `algorithm' - floating enviro
+nment
+
+(C:\CTEX\MiKTeX\tex\latex\float\float.sty
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count118
+\float@exts=\toks23
+\float@box=\box31
+\@float@everytoks=\toks24
+\@floatcapt=\box32
+)
+(C:\CTEX\MiKTeX\tex\latex\base\ifthen.sty
+Package: ifthen 2001/05/26 v1.1c Standard LaTeX ifthen package (DPC)
+)
+\@float@every@algorithm=\toks25
+\c@algorithm=\count119
+)
+(C:\CTEX\UserData\tex\latex\algorithms\algorithmic.sty
+Package: algorithmic 2009/08/24 v0.1 Document Style `algorithmic'
+\c@ALC@unique=\count120
+\c@ALC@line=\count121
+\c@ALC@rem=\count122
+\c@ALC@depth=\count123
+\ALC@tlm=\skip56
+\algorithmicindent=\skip57
+)
+(C:\CTEX\UserData\tex\latex\caption\caption.sty
+Package: caption 2013/05/02 v3.3-89 Customizing captions (AR)
+
+(C:\CTEX\UserData\tex\latex\caption\caption3.sty
+Package: caption3 2013/05/02 v1.6-88 caption3 kernel (AR)
+Package caption3 Info: TeX engine: e-TeX on input line 57.
+\captionmargin=\dimen121
+\captionmargin@=\dimen122
+\captionwidth=\dimen123
+\caption@tempdima=\dimen124
+\caption@indent=\dimen125
+\caption@parindent=\dimen126
+\caption@hangindent=\dimen127
+)
+\c@ContinuedFloat=\count124
+Package caption Info: float package is loaded.
+Package caption Info: subfigure package is loaded.
+)
+(D:\Paper\2017-SDM\soda2e-SDM-submit\ltexpprt.aux
+
+LaTeX Warning: Label `fig:scale1' multiply defined.
+
+
+LaTeX Warning: Label `sub@fig:scale1' multiply defined.
+
+
+LaTeX Warning: Label `fig:scale2' multiply defined.
+
+
+LaTeX Warning: Label `sub@fig:scale2' multiply defined.
+
+
+LaTeX Warning: Label `fig:graphwaveletscale' multiply defined.
+
+)
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 71.
+LaTeX Font Info:    ... okay on input line 71.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 71.
+LaTeX Font Info:    ... okay on input line 71.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 71.
+LaTeX Font Info:    ... okay on input line 71.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 71.
+LaTeX Font Info:    ... okay on input line 71.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 71.
+LaTeX Font Info:    ... okay on input line 71.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 71.
+LaTeX Font Info:    ... okay on input line 71.
+ (C:\CTEX\MiKTeX\tex\context\base\supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count125
+\scratchdimen=\dimen128
+\scratchbox=\box33
+\nofMPsegments=\count126
+\nofMParguments=\count127
+\everyMPshowfont=\toks26
+\MPscratchCnt=\count128
+\MPscratchDim=\dimen129
+\MPnumerator=\count129
+\makeMPintoPDFobject=\count130
+\everyMPtoPDFconversion=\toks27
+)
+Package caption Info: Begin \AtBeginDocument code.
+Package caption Info: End \AtBeginDocument code.
+LaTeX Font Info:    Try loading font information for U+rsfs on input line 90.
+ (C:\CTEX\MiKTeX\tex\latex\jknappen\ursfs.fd
+File: ursfs.fd 1998/03/24 rsfs font definition file (jk)
+)
+LaTeX Font Info:    Try loading font information for U+msa on input line 90.
+
+(C:\CTEX\MiKTeX\tex\latex\amsfonts\umsa.fd
+File: umsa.fd 2009/06/22 v3.00 AMS symbols A
+)
+LaTeX Font Info:    Try loading font information for U+msb on input line 90.
+
+(C:\CTEX\MiKTeX\tex\latex\amsfonts\umsb.fd
+File: umsb.fd 2009/06/22 v3.00 AMS symbols B
+)
+Underfull \hbox (badness 10000) in paragraph at lines 104--104
+[][]\OT1/cmr/m/n/8 http://www.statista.com/statistics/282087/number-of-
+ []
+
+<figures/Natal_example1.png, id=1, 874.76813pt x 329.73187pt>
+File: figures/Natal_example1.png Graphic file (type png)
+
+<use figures/Natal_example1.png>
+Package pdftex.def Info: figures/Natal_example1.png used on input line 116.
+(pdftex.def)             Requested size: 210.89633pt x 79.49744pt.
+
+Underfull \hbox (badness 1824) in paragraph at lines 121--123
+[]\OT1/cmr/m/n/10 Developing a bet-ter ap-pre-ci-a-tion of this phe-
+ []
+
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 125.
+
+(C:\CTEX\MiKTeX\tex\latex\base\omscmr.fd
+File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 125.
+ [1{C:/CTEX/UserData/pdftex/config/pdftex.map{Unicode.sfd}{UGBK.sfd}}
+
+
+ <D:/Paper/2017-SDM/soda2e-SDM-submit/figures/Natal_example1.png>] [2] [3]
+<figures/graph_G.png, id=30, 152.06813pt x 70.76437pt>
+File: figures/graph_G.png Graphic file (type png)
+
+<use figures/graph_G.png>
+Package pdftex.def Info: figures/graph_G.png used on input line 281.
+(pdftex.def)             Requested size: 124.2465pt x 57.81621pt.
+
+<figures/frequency.png, id=31, 1631.34468pt x 831.105pt>
+File: figures/frequency.png Graphic file (type png)
+
+<use figures/frequency.png>
+Package pdftex.def Info: figures/frequency.png used on input line 295.
+(pdftex.def)             Requested size: 173.42453pt x 65.03137pt.
+
+<figures/g1_gamma.png, id=32, 1575.63657pt x 828.84656pt>
+File: figures/g1_gamma.png Graphic file (type png)
+
+<use figures/g1_gamma.png>
+Package pdftex.def Info: figures/g1_gamma.png used on input line 300.
+(pdftex.def)             Requested size: 166.20406pt x 65.03171pt.
+
+<figures/same_graph.png, id=33, 1292.57906pt x 676.77844pt>
+File: figures/same_graph.png Graphic file (type png)
+
+<use figures/same_graph.png>
+Package pdftex.def Info: figures/same_graph.png used on input line 305.
+(pdftex.def)             Requested size: 177.05464pt x 65.03815pt.
+
+Underfull \hbox (badness 5446) in paragraph at lines 314--315
+ \OT1/cmr/bx/n/10 4.2 Glob-al Anoma-ly In-dex[] \OT1/cmr/m/n/10 To quan-ti-fy t
+he
+ []
+
+[4 <D:/Paper/2017-SDM/soda2e-SDM-submit/figures/graph_G.png> <D:/Paper/2017-SDM
+/soda2e-SDM-submit/figures/frequency.png> <D:/Paper/2017-SDM/soda2e-SDM-submit/
+figures/g1_gamma.png> <D:/Paper/2017-SDM/soda2e-SDM-submit/figures/same_graph.p
+ng>] <figures/f_on_g1.png, id=39, 84.315pt x 71.51718pt>
+File: figures/f_on_g1.png Graphic file (type png)
+
+<use figures/f_on_g1.png>
+Package pdftex.def Info: figures/f_on_g1.png used on input line 345.
+(pdftex.def)             Requested size: 68.16353pt x 57.81621pt.
+ <figures/f_on_g2.png, id=40, 84.315pt x 71.51718pt>
+File: figures/f_on_g2.png Graphic file (type png)
+
+<use figures/f_on_g2.png>
+Package pdftex.def Info: figures/f_on_g2.png used on input line 349.
+(pdftex.def)             Requested size: 68.16353pt x 57.81621pt.
+
+<figures/new_graph.png, id=41, 2569.6pt x 1174.3875pt>
+File: figures/new_graph.png Graphic file (type png)
+
+<use figures/new_graph.png>
+Package pdftex.def Info: figures/new_graph.png used on input line 358.
+(pdftex.def)             Requested size: 216.78593pt x 72.2701pt.
+
+Underfull \hbox (badness 1533) in paragraph at lines 369--373
+ \OT1/cmr/bx/n/10 4.3 Graph Wavelet-s[] \OT1/cmr/m/n/10 Clas-sic wavelet for-ma
+lism-s
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+<figures/wavelet1-2.png, id=43, 189.70876pt x 160.34906pt>
+File: figures/wavelet1-2.png Graphic file (type png)
+
+<use figures/wavelet1-2.png>
+Package pdftex.def Info: figures/wavelet1-2.png used on input line 413.
+(pdftex.def)             Requested size: 101.1791pt x 79.49902pt.
+
+<figures/wavelet2.png, id=44, 189.70876pt x 131.74219pt>
+File: figures/wavelet2.png Graphic file (type png)
+
+<use figures/wavelet2.png>
+Package pdftex.def Info: figures/wavelet2.png used on input line 417.
+(pdftex.def)             Requested size: 101.1791pt x 79.50021pt.
+
+<figures/wavelet3.png, id=45, 189.70876pt x 160.34906pt>
+File: figures/wavelet3.png Graphic file (type png)
+
+<use figures/wavelet3.png>
+Package pdftex.def Info: figures/wavelet3.png used on input line 421.
+(pdftex.def)             Requested size: 101.1791pt x 79.49902pt.
+
+<figures/wavelet4.png, id=46, 462.22687pt x 224.33812pt>
+File: figures/wavelet4.png Graphic file (type png)
+
+<use figures/wavelet4.png>
+Package pdftex.def Info: figures/wavelet4.png used on input line 425.
+(pdftex.def)             Requested size: 108.40468pt x 79.4951pt.
+ [5 <D:/Paper/2017-SDM/soda2e-SDM-submit/figures/f_on_g1.png> <D:/Paper/2017-SD
+M/soda2e-SDM-submit/figures/f_on_g2.png> <D:/Paper/2017-SDM/soda2e-SDM-submit/f
+igures/new_graph.png>]
+Underfull \hbox (badness 3954) in paragraph at lines 517--521
+ \OT1/cmr/bx/n/10 4.4 Group Anoma-ly De-tec-tion vi-a Graph
+ []
+
+[6 <D:/Paper/2017-SDM/soda2e-SDM-submit/figures/wavelet1-2.png> <D:/Paper/2017-
+SDM/soda2e-SDM-submit/figures/wavelet2.png> <D:/Paper/2017-SDM/soda2e-SDM-submi
+t/figures/wavelet3.png> <D:/Paper/2017-SDM/soda2e-SDM-submit/figures/wavelet4.p
+ng>]
+Underfull \hbox (badness 1173) in paragraph at lines 530--531
+[]\OT1/cmr/m/n/10 Graph wavelet-s are able to i-den-ti-fy ab-nor-mal
+ []
+
+<figures/brazil_graph_nn_5.png, id=62, 1340.75906pt x 768.62157pt>
+File: figures/brazil_graph_nn_5.png Graphic file (type png)
+
+<use figures/brazil_graph_nn_5.png>
+Package pdftex.def Info: figures/brazil_graph_nn_5.png used on input line 548.
+(pdftex.def)             Requested size: 101.16634pt x 101.1675pt.
+
+<figures/brazil_zscore_31.png, id=63, 1525.95094pt x 809.27344pt>
+File: figures/brazil_zscore_31.png Graphic file (type png)
+
+<use figures/brazil_zscore_31.png>
+Package pdftex.def Info: figures/brazil_zscore_31.png used on input line 552.
+(pdftex.def)             Requested size: 101.16943pt x 101.17128pt.
+
+<figures/s1.png, id=64, 909.3975pt x 833.36343pt>
+File: figures/s1.png Graphic file (type png)
+ <use figures/s1.png>
+Package pdftex.def Info: figures/s1.png used on input line 577.
+(pdftex.def)             Requested size: 101.17189pt x 101.16917pt.
+
+<figures/s2.png, id=65, 916.92563pt x 812.28468pt>
+File: figures/s2.png Graphic file (type png)
+ <use figures/s2.png>
+Package pdftex.def Info: figures/s2.png used on input line 581.
+(pdftex.def)             Requested size: 101.16994pt x 101.17589pt.
+
+[7 <D:/Paper/2017-SDM/soda2e-SDM-submit/figures/brazil_graph_nn_5.png> <D:/Pape
+r/2017-SDM/soda2e-SDM-submit/figures/brazil_zscore_31.png>]
+Overfull \hbox (7.69681pt too wide) in paragraph at lines 649--666
+ [][] 
+ []
+
+[8 <D:/Paper/2017-SDM/soda2e-SDM-submit/figures/s1.png> <D:/Paper/2017-SDM/soda
+2e-SDM-submit/figures/s2.png>]
+<figures/Chile_absent_zscore_3.png, id=76, 319.1925pt x 580.41844pt>
+File: figures/Chile_absent_zscore_3.png Graphic file (type png)
+
+<use figures/Chile_absent_zscore_3.png>
+Package pdftex.def Info: figures/Chile_absent_zscore_3.png used on input line 6
+87.
+(pdftex.def)             Requested size: 50.5848pt x 57.81497pt.
+
+<figures/Chile_absent_wavelet_3.png, id=77, 335.75438pt x 589.4522pt>
+File: figures/Chile_absent_wavelet_3.png Graphic file (type png)
+
+<use figures/Chile_absent_wavelet_3.png>
+Package pdftex.def Info: figures/Chile_absent_wavelet_3.png used on input line 
+692.
+(pdftex.def)             Requested size: 50.5864pt x 57.81538pt.
+
+<figures/Chile_burst_zscore_3.png, id=78, 296.60812pt x 581.92406pt>
+File: figures/Chile_burst_zscore_3.png Graphic file (type png)
+
+<use figures/Chile_burst_zscore_3.png>
+Package pdftex.def Info: figures/Chile_burst_zscore_3.png used on input line 69
+7.
+(pdftex.def)             Requested size: 50.58563pt x 57.814pt.
+
+<figures/Chile_burst_wavelet_3.png, id=79, 329.73187pt x 577.40718pt>
+File: figures/Chile_burst_wavelet_3.png Graphic file (type png)
+
+<use figures/Chile_burst_wavelet_3.png>
+Package pdftex.def Info: figures/Chile_burst_wavelet_3.png used on input line 7
+02.
+(pdftex.def)             Requested size: 50.58464pt x 57.81458pt.
+
+<figures/earthquake_example_10min_circle.png, id=80, 884.55469pt x 471.26062pt>
+File: figures/earthquake_example_10min_circle.png Graphic file (type png)
+<use figures/earthquake_example_10min_circle.png>
+Package pdftex.def Info: figures/earthquake_example_10min_circle.png used on in
+put line 706.
+(pdftex.def)             Requested size: 101.175pt x 50.58762pt.
+
+<figures/earthquake_cloud.png, id=81, 1445.4pt x 674.52pt>
+File: figures/earthquake_cloud.png Graphic file (type png)
+
+<use figures/earthquake_cloud.png>
+Package pdftex.def Info: figures/earthquake_cloud.png used on input line 710.
+(pdftex.def)             Requested size: 101.16628pt x 50.5868pt.
+
+<figures/Venuze_absent_zscore_3.png, id=82, 361.35pt x 282.30469pt>
+File: figures/Venuze_absent_zscore_3.png Graphic file (type png)
+
+<use figures/Venuze_absent_zscore_3.png>
+Package pdftex.def Info: figures/Venuze_absent_zscore_3.png used on input line 
+727.
+(pdftex.def)             Requested size: 50.58865pt x 61.4266pt.
+
+<figures/Venuze_absent_wavelet_3.png, id=83, 386.19281pt x 280.79906pt>
+File: figures/Venuze_absent_wavelet_3.png Graphic file (type png)
+
+<use figures/Venuze_absent_wavelet_3.png>
+Package pdftex.def Info: figures/Venuze_absent_wavelet_3.png used on input line
+ 731.
+(pdftex.def)             Requested size: 50.58395pt x 61.42892pt.
+
+<figures/Venuze_burst_zscore_3.png, id=84, 347.79938pt x 277.035pt>
+File: figures/Venuze_burst_zscore_3.png Graphic file (type png)
+
+<use figures/Venuze_burst_zscore_3.png>
+Package pdftex.def Info: figures/Venuze_burst_zscore_3.png used on input line 7
+35.
+(pdftex.def)             Requested size: 50.58617pt x 61.42978pt.
+
+<figures/Venuze_burst_wavelet_3.png, id=85, 389.95688pt x 288.3272pt>
+File: figures/Venuze_burst_wavelet_3.png Graphic file (type png)
+
+<use figures/Venuze_burst_wavelet_3.png>
+Package pdftex.def Info: figures/Venuze_burst_wavelet_3.png used on input line 
+739.
+(pdftex.def)             Requested size: 50.58907pt x 61.43039pt.
+
+<figures/Veneuela_power_count_all.png, id=86, 929.72343pt x 471.26062pt>
+File: figures/Veneuela_power_count_all.png Graphic file (type png)
+
+<use figures/Veneuela_power_count_all.png>
+Package pdftex.def Info: figures/Veneuela_power_count_all.png used on input lin
+e 743.
+(pdftex.def)             Requested size: 101.17754pt x 50.58762pt.
+
+<figures/power-English.png, id=87, 1445.4pt x 724.20563pt>
+File: figures/power-English.png Graphic file (type png)
+
+<use figures/power-English.png>
+Package pdftex.def Info: figures/power-English.png used on input line 747.
+(pdftex.def)             Requested size: 101.16628pt x 50.57802pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 758--758
+[][]\OT1/cmr/m/n/8 http://www.usatoday.com/story/news/world/2013/12/ 02/
+ []
+
+[9 <D:/Paper/2017-SDM/soda2e-SDM-submit/figures/Chile_absent_zscore_3.png> <D:/
+Paper/2017-SDM/soda2e-SDM-submit/figures/Chile_absent_wavelet_3.png> <D:/Paper/
+2017-SDM/soda2e-SDM-submit/figures/Chile_burst_zscore_3.png> <D:/Paper/2017-SDM
+/soda2e-SDM-submit/figures/Chile_burst_wavelet_3.png> <D:/Paper/2017-SDM/soda2e
+-SDM-submit/figures/earthquake_example_10min_circle.png> <D:/Paper/2017-SDM/sod
+a2e-SDM-submit/figures/earthquake_cloud.png> <D:/Paper/2017-SDM/soda2e-SDM-subm
+it/figures/Venuze_absent_zscore_3.png> <D:/Paper/2017-SDM/soda2e-SDM-submit/fig
+ures/Venuze_absent_wavelet_3.png> <D:/Paper/2017-SDM/soda2e-SDM-submit/figures/
+Venuze_burst_zscore_3.png> <D:/Paper/2017-SDM/soda2e-SDM-submit/figures/Venuze_
+burst_wavelet_3.png> <D:/Paper/2017-SDM/soda2e-SDM-submit/figures/Veneuela_powe
+r_count_all.png> <D:/Paper/2017-SDM/soda2e-SDM-submit/figures/power-English.png
+>] <figures/scale-S.png, id=92, 1055.945pt x 374.39874pt>
+File: figures/scale-S.png Graphic file (type png)
+
+<use figures/scale-S.png>
+Package pdftex.def Info: figures/scale-S.png used on input line 773.
+(pdftex.def)             Requested size: 216.80849pt x 72.26764pt.
+
+Underfull \hbox (badness 2245) in paragraph at lines 796--797
+\OT1/cmr/m/n/10 Supported by the In-tel-li-gence Ad-vanced Re-search
+ []
+
+(D:\Paper\2017-SDM\soda2e-SDM-submit\ltexpprt.bbl
+Missing character: There is no â in font cmr9!
+Missing character: There is no € in font cmr9!
+Missing character: There is no ™ in font cmr9!
+ [10 <D:/Paper/2017-SDM/soda2e-SDM-submit/figures/scale-S.png (PNG copy)>]
+Underfull \hbox (badness 1400) in paragraph at lines 98--102
+[]\OT1/cmr/m/n/9 G. Sheik-holesla-mi, S. Chat-ter-jee, and A. Zhang.
+ []
+
+) [11
+
+] (D:\Paper\2017-SDM\soda2e-SDM-submit\ltexpprt.aux)
+
+LaTeX Warning: There were multiply-defined labels.
+
+ ) 
+Here is how much of TeX's memory you used:
+ 4381 strings out of 495354
+ 62085 string characters out of 3183859
+ 132435 words of memory out of 3000000
+ 7455 multiletter control sequences out of 15000+200000
+ 14217 words of font info for 57 fonts, out of 3000000 for 9000
+ 14 hyphenation exceptions out of 8191
+ 36i,15n,38p,1758b,609s stack positions out of 5000i,500n,10000p,200000b,50000s
+<C:/CTEX/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/CTEX/MiKTeX/fon
+ts/type1/public/amsfonts/cm/cmbx6.pfb><C:/CTEX/MiKTeX/fonts/type1/public/amsfon
+ts/cm/cmbx7.pfb><C:/CTEX/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx8.pfb><C:/CT
+EX/MiKTeX/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/CTEX/MiKTeX/fonts/type1
+/public/amsfonts/cm/cmmi10.pfb><C:/CTEX/MiKTeX/fonts/type1/public/amsfonts/cm/c
+mmi5.pfb><C:/CTEX/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi6.pfb><C:/CTEX/MiKT
+eX/fonts/type1/public/amsfonts/cm/cmmi7.pfb><C:/CTEX/MiKTeX/fonts/type1/public/
+amsfonts/cm/cmmi8.pfb><C:/CTEX/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb>
+<C:/CTEX/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/CTEX/MiKTeX/fonts/
+type1/public/amsfonts/cm/cmr17.pfb><C:/CTEX/MiKTeX/fonts/type1/public/amsfonts/
+cm/cmr5.pfb><C:/CTEX/MiKTeX/fonts/type1/public/amsfonts/cm/cmr6.pfb><C:/CTEX/Mi
+KTeX/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:/CTEX/MiKTeX/fonts/type1/public
+/amsfonts/cm/cmr8.pfb><C:/CTEX/MiKTeX/fonts/type1/public/amsfonts/cm/cmr9.pfb><
+C:/CTEX/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/CTEX/MiKTeX/fonts/
+type1/public/amsfonts/cm/cmsy5.pfb><C:/CTEX/MiKTeX/fonts/type1/public/amsfonts/
+cm/cmsy6.pfb><C:/CTEX/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy7.pfb><C:/CTEX/
+MiKTeX/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/CTEX/MiKTeX/fonts/type1/pub
+lic/amsfonts/cm/cmti10.pfb><C:/CTEX/MiKTeX/fonts/type1/public/amsfonts/cm/cmti9
+.pfb><C:/CTEX/MiKTeX/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
+Output written on ltexpprt.pdf (11 pages, 2160551 bytes).
+PDF statistics:
+ 180 PDF objects out of 1000 (max. 8388607)
+ 0 named destinations out of 1000 (max. 500000)
+ 146 words of extra memory for PDF output out of 10000 (max. 10000000)
+
